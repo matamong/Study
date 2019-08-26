@@ -13,7 +13,7 @@
   존재하지 않으면 두 객체를 생성해서 웹 어플리케이션의 `서블릿 컨테이너`로 전달해준다.
 - 이제 비로서 서블릿이 동작하며 서블릿 라이프사이클이 돌아가게된다.<br>
 <br>
-## **Servlet**의 생명주기
+## **Servlet**의 생명주기<br>
 * * *
 ![ppt2](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C2.JPG?raw=true)
 
