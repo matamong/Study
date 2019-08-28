@@ -84,37 +84,8 @@ function addHamster() {
 
 }
 ```
-위 형식대로 짠 코드를 실행시키면 아래와 같이 나온다. <br>적용하기를 눌러보자<br><br><br>
-<html>
-<head>
-  <title> Three Fruit & Three Animal</title>
-</head>
-<body>
-  <div id="Fruit"> 
-    <div> Apple </div>
-    <div> Peach </div>
-    <div> Orange </div>
-  </div>
-  <div id="Animal">
-    <div> Dog </div>
-    <div> Cat </div>
-  </div>
-    <button onclick="addHamster()">JavaScript적용하기</button>
-  <div>
-  </div>
-  <script>
-  function addHamster() {
-    var animal = document.getElementById("Animal"); // Animal 요소를 넣으면 요소를 담은 객체를 반환해준다.
-
-    var hamster = document.createElement("div"); //div를 만들어 hamster변수에 넣어준다.
-
-    hamster.innerHTML = "Hamster"; //hamster(div)에 text를 입력한다.
-
-    animal.appendChild(hamster);  //hamster(div)를 가져왔던 animal객체에 붙여준다.
-}
-  </script>
-</body>
-</html>
+위 형식대로 짠 코드를 실행시키면 아래와 같이 나온다. <br>
+주소첨부영역...
 
 
 
