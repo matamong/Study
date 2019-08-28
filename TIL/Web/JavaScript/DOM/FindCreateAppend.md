@@ -85,7 +85,7 @@ function addHamster() {
 }
 ```
 위 형식대로 짠 코드를 실행시키면 아래와 같이 나온다. <br>적용하기를 눌러보자<br><br><br>
-<pre><code><html>
+<html>
 <head>
   <title> Three Fruit & Three Animal</title>
 </head>
@@ -115,7 +115,7 @@ function addHamster() {
   </script>
 </body>
 </html>
-</code></pre>
+
 
 
 
