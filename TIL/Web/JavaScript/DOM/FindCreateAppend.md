@@ -84,8 +84,9 @@ function addHamster() {
 
 }
 ```
-위 형식대로 짠 코드를 실행시키면 아래와 같이 나온다. <br>
-주소첨부영역...
+위 형식대로 짠 코드를 실행시켜보자!콘솔창도 잊지말고 챙겨보기!<br>
+
+[적용해보러가기] (https://matamong.github.io/matamongWorld/)
 
 
 
