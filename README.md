@@ -12,8 +12,11 @@
 # 목차
 
 - ## **[Web](https://github.com/matamong/Study/tree/master/TIL/Web)**
-> - **[DOM](https://github.com/matamong/Study/blob/master/TIL/Web/JavaScript/DOM/FindCreateAppend.md)**
+> - **[DOM](https://github.com/matamong/Study/blob/master/TIL/Web/JavaScript/DOM)**
 > - **[Servlet](https://github.com/matamong/Study/tree/master/TIL/Web/Servlet)**
+- ## **[Error Solution](https://github.com/matamong/Study/tree/master/Error%20Solution)**
+> - **[Spring](https://github.com/matamong/Study/tree/master/Error%20Solution/Spring)**
+> - **[WAS](https://github.com/matamong/Study/tree/master/Error%20Solution/WAS)**
 
 
 
