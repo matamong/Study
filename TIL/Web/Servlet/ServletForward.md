@@ -1,4 +1,4 @@
-# **서블릿 포워드 ＆ 바인딩**
+# **서블릿 포워드**
 
 ## **서블릿 포워드(Forward)**
 * * *
@@ -62,7 +62,8 @@ public class SecondServlet extends HttpServlet{
 
 ```
 **결과** <br>
-[img]()<br>
+![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardRedirect.JPG)
+<br>
  FirstSerlvet에서 second로 매핑된 SecondServlet으로 Redirect한 코드는 브라우저를 한번 거쳐서 다시 `WAS`에서`HttpServletResponse`와 `HttpServletRequest` 객체를 생성하기 때문에 url이 변경된 것을 확인 할 수 있다.
 <br><br><br>
 
