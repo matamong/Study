@@ -1,15 +1,18 @@
-# Study Repository 소개
-
+# **Study Repository 소개**
 
 
 ## **TIL** <br>
-**Today I Learnd** <br>
-**Thing I Learnd** <br>
-오늘 배운 것들을 간단히 정리한 것, 한꺼번에 정리하는 것들을 <br>모은 Repository입니다.
+**TIL Diary**  <br>
+하루에 배웠던 것을 기술하는 TIL Diary입니다. <br>
+**Things I Learnd** <br>
+배운 것들을 간단히 혹은 자세하게 정리한 것들을 모았습니다.
 <br>
 <br>
 
-# 목차
+## **TIL Diary 목차**
+ - ## **[201909 ~]()**
+
+## **TIL 목차**
 
 - ## **[Web](https://github.com/matamong/Study/tree/master/TIL/Web)**
 > - **[DOM](https://github.com/matamong/Study/blob/master/TIL/Web/JavaScript/DOM)**
