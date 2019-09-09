@@ -6,7 +6,7 @@
 
 ## **Servlet**이 동작하려면...<br>
 * * *
-![ppt1](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C1.JPG?raw=true)
+![ppt1](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletLifeCycle/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C1.JPG)
 
 - 먼저 `클라이언트(Web Browser)`가 요청을 보낸다.
 - 클라이언트의 요청을 `WAS`가 받아 `HttpServletRequest`객체와 `HttpServletResponse`객체가 존재하는지 확인 한 후,<br>
@@ -16,7 +16,7 @@
 
 ## **Servlet**의 생명주기 <br>
 * * *
-![ppt2](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C2.JPG?raw=true)
+![ppt2](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletLifeCycle/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C2.JPG)
 
 **Servlet**은 
 - **`init()`**
@@ -27,7 +27,7 @@
 
 ### **`init()`**<br>
 * * *
-![init()ppt](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C3.JPG?raw=true)
+![init()ppt](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletLifeCycle/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C3.JPG)
 
 `init()` 메서드는 최초로 딱 한번 호출된다.<br>
 그 때가 언제냐면 바로 서블릿 컨테이너가 전달받는 객체가 생성 될 때이다.
@@ -37,7 +37,7 @@ WAS에서 서블릿 컨테이너에게 전달해주는 객체를 생성할 때  
 
 ### **`service()`**<br>
 * * *
-![service()ppt](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C4.JPG?raw=true)
+![service()ppt](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletLifeCycle/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C5.JPG)
 
 `service()`메서드는 실제로 제일 열일하는 메서드이다.<br>
 `HttpServletRequest`,`HttpServletResponse` 이 두 객체를 가진 컨테이너가 `service()`메서드를 불러낸다.<br>
