@@ -20,7 +20,8 @@
 - ## **[Error Solution](https://github.com/matamong/Study/tree/master/Error%20Solution)**
 > - **[Spring](https://github.com/matamong/Study/tree/master/Error%20Solution/Spring)**
 > - **[WAS](https://github.com/matamong/Study/tree/master/Error%20Solution/WAS)**
-
+- ## **[객체지향](https://github.com/matamong/Study/tree/master/TIL/OOP/SOLID)**
+> - **[SOLID](https://github.com/matamong/Study/tree/master/TIL/OOP/SOLID)**
 
 
 
