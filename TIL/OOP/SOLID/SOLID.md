@@ -119,7 +119,7 @@ class MyPhone {
 
 간단하게 표현하면 다음과 같다.
 
-![이미지](#)
+![DIP 전과 후](https://github.com/matamong/Study/blob/master/TIL/OOP/img/DIP_BeforeAfter.png)
 
 이렇게 의존성이 역전되면 충전기가 변할 때 마다 `MyPhone 클래스`를 건드릴 필요없이 인터페이스만 이용하여 각 충전기를 교체할 수 있다. <br>
 <br>
