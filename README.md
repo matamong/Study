@@ -15,15 +15,17 @@
 ## **TIL 목차**
 
 - ## **[Web](https://github.com/matamong/Study/tree/master/TIL/Web)**
-> - **[DOM](https://github.com/matamong/Study/blob/master/TIL/Web/JavaScript/DOM)**
-> - **[Servlet](https://github.com/matamong/Study/tree/master/TIL/Web/Servlet)**
+  - **[DOM](https://github.com/matamong/Study/blob/master/TIL/Web/JavaScript/DOM)**
+  - **[Servlet](https://github.com/matamong/Study/tree/master/TIL/Web/Servlet)**
 - ## **[Error Solution](https://github.com/matamong/Study/tree/master/Error%20Solution)**
-> - **[Spring](https://github.com/matamong/Study/tree/master/Error%20Solution/Spring)**
-> - **[WAS](https://github.com/matamong/Study/tree/master/Error%20Solution/WAS)**
+  - **[Spring](https://github.com/matamong/Study/tree/master/Error%20Solution/Spring)**
+  - **[WAS](https://github.com/matamong/Study/tree/master/Error%20Solution/WAS)**
 - ## **[객체지향](https://github.com/matamong/Study/tree/master/TIL/OOP/SOLID)**
-> - **[SOLID](https://github.com/matamong/Study/tree/master/TIL/OOP/SOLID)**
+  - **[SOLID](https://github.com/matamong/Study/tree/master/TIL/OOP/SOLID)**
+- ## **[자료구조&알고리즘]** 링크추가예정..
+  - **DataStructure**
 
-
+* * * 
 
 
 
