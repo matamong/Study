@@ -117,7 +117,7 @@ String a = getServletContext().getInitParameter("파라미터 이름");
 ### 차이점
 |  <center></center> |  <center>**ServletConfig**</center> |  <center>**ServletContex**</center> |
 |:--------|:--------:|--------:|
-<center>**초기화 시기**</center> | <center> 서블릿을 생성할 때 </center> |<center>웹 어플리케이션이 시작될 때</center> |
+|<center>**초기화 시기**</center> | <center> 서블릿을 생성할 때 </center> |<center>웹 어플리케이션이 시작될 때</center> |
 |<center>**객체의 수**</center> | <center>서블릿 당 하나 </center> |<center>웹 어플리케이션 당 하나</center> |
 |<center>**접근 범위**</center> | <center>특정 서블릿</center> |<center>모든 웹 어플리케이션</center> |
 |<center>**DD 설정법**</center> | <center>`servlet`항목 안에 `init-param` </center> |<center>`web-app`항목 안에 `context-param`</center> |
