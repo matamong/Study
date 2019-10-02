@@ -1,0 +1,224 @@
+@charset "UTF-8";
+body{
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+	font-size: 0.75em;
+}
+#wrap{
+	width:971px;
+	text-align: left;
+	margin:0;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #ffffff;
+}
+#logo{
+	float:left;
+ 	width: 160px; 
+	height: 100px;
+	margin: 40px 0 0 40px;
+}
+nav#category_menu{
+	float:right;
+	font-family: arial, Helvetico, san-serif;
+	margin: 20px 64px 0 0px;
+}
+nav#category_menu ul{
+	list-style: none;
+}
+nav#category_menu ul li{
+	display: block;
+	float: left;
+	height: 30px;
+	font-family: 굴림;
+}
+nav#category_menu a{
+	color: #ccc;
+	text-decoration: none;
+	width: 80px;
+	font-weight: bold;
+	display: inline-block;
+	text-align: center;
+}
+nav#category_menu a:hover{
+	color:#F90;
+	font-weight: bold;
+	
+}
+nav#top_menu{
+	margin: 20px 0;
+	float: right;
+}
+nav#top_menu ul{
+	list-style: none;
+	font-family: Verdana;
+}
+nav#top_menu ul li{
+	margin: 0 15px;
+	float: left;
+	font-size: 14px;
+}
+nav#top_menu a{
+	color: #aaaaff;
+	text-decoration: none;
+	display:block;
+	height: 20px;
+	padding : 10px;	
+}nav#top_menu a:hover{
+	background: url("../images/purple.gif");
+	background-position: bottom;
+	background-repeat: repeat-x;
+}
+
+.clear{clear:both}
+
+
+#main_img{text-align:center;}
+#main_img img{margin: 9px 0 0 0px;}
+
+
+div#front{margin: 5px 0 5px 20px;}
+#bestProduct{
+	border: 1px solid #fff;
+	border-radius: 10px;
+	width: 910px;
+	min-height: 260px;
+	background: #ebebeb;
+	padding: 10px;
+	text-align: center;
+}
+#item{
+	width: 200px;
+	float: left;
+	margin: 0 13px;
+	text-align: center;
+}
+#item img{width: 190px; height: 200px;}
+
+
+
+#itemdetail img{
+	width: 190px; 
+	height: 200px;
+	margin-right: 20px;
+	}
+article{
+	float: right;
+	width: 680px;
+ 	padding-right: 10px; 
+	padding-bottom: 20px;  /* 내가추가 */
+	font-family: Verdona, Geneva, sans-serif;
+	font-size: 1em;
+	line-height: 1.5em;
+}
+article p{padding-left: 10px;}
+form{margin: 10px 0 0 0;}
+form fieldset {
+	padding: 10px 0px 20px 5px;
+	border: none;
+}
+form fieldset legend{
+	font-size: 20px;
+	border-bottom: 1px dotted #666;
+	width: 600px; 
+	padding: 5px 0;
+}
+form label{
+	width: 140px;
+	float: left;
+	padding: 5px 0;
+}
+form #button{margin: 00px 0 0 0;}
+form .submit, form .cancel{
+	height: 30px;
+	width: 150px;
+	border: 1px solid #666;
+	border-radius: 10px;
+	box-shadow: 3px 3px 2px #ccc;
+	font-size: 14px;
+	background-repeat: repeat-x;
+	background-position: center center;
+	color: #fff;
+	margin: 0 0 0 20px;
+}
+form .submit{background-image: url(../images/submit_back.jpg)}
+form .cancel{background-image: url(../images/cancel_back.jpg)}
+
+form input{
+	margin: 5px 0;
+	border: 1px solid #999;
+	background-color:#FCFDEA; 
+}
+
+form input.id{
+	height: 18px;
+	width: 100px;
+}
+form input.dup{
+	width: 90px;
+	height: 23px;
+	border-radius: 8px;
+	border: none;
+	margin: 0 0 0 5px;
+	font-weight: bold;
+	color: #fff;
+	background-image: url(../images/dup.jpg);
+	background-repeat: repeat-x;
+	background-position: center center;
+}
+
+
+
+
+#sub_img{text-align:center;}
+#sub_img img{margin: 9px 0 0 0;}
+#sub_menu{
+	width: 250px;
+	float: left;
+	margin: 20px 0;
+}
+#sub_menu ul{
+	margin: 20px 0 0 16px;
+	list-style: none;
+}
+#sub_menu a{
+	text-decoration: none;
+	color:#aaaaff;
+	font-family: arial, Helvetico, san-serif;
+	font-weight: bold;
+	font-size: 16px;
+	display: block;
+	width: 160px;
+	height: 15px;
+	padding: 7px;
+	border-bottom: 1px dotted #999;
+	background-image: url("../images/bullet.gif");
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+#sub_menu a:hover{
+	background-image: url("../images/bullet_orange.gif");
+	background-repeat: no-repeat;
+	background-position: right center;
+	color:#0000FF;
+	font-weight: bold;
+	font-size: 16px;
+	font-family: arial, Helvetico, san-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
