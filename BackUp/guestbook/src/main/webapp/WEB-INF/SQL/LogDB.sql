@@ -1,3 +1,12 @@
+conn sys as sysdba
+
+CREATE USER me IDENTIFIED BY tiger
+ default tablespace users
+ temporary tablespace temp;
+
+grant connect, resource, plustrace, alter session to me;
+
+
 CREATE TABLE log (
     id  number(20) NOT NULL primary key,
     ip varchar2(255) NOT NULL,
