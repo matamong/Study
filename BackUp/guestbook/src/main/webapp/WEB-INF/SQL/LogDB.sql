@@ -25,3 +25,22 @@ create trigger increse_num
         from dual;
     end;
   /
+  
+CREATE TABLE guestbook (
+	id number(20) NOT NULL primary key,
+	name varchar2(255) NOT NULL,
+	content varchar2(255),
+	regdate date
+	);
+	
+CREATE SEQUENCE guestbook_seq START WITH 1 INCREMENT BY 1 MAXVALUE 99999999 CYCLE NOCACHE;
+
+create trigger increse1_num
+      before insert on guestbook
+      for each row
+    begin
+    select guestbook_seq.nextval
+        into :new.id
+        from dual;
+    end;
+  /

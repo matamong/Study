@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Index JSP 입니다.</h1>
+<%
+	response.sendRedirect("list");
+%>
 </body>
 </html>
