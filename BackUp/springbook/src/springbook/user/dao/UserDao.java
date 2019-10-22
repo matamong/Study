@@ -43,7 +43,7 @@ public class UserDao {
 		ResultSet rs = ps.executeQuery();
 
 		User user = null;
-		
+
 		if(rs.next()) {
 			user = new User();
 			user.setId(rs.getString("id"));
@@ -54,36 +54,81 @@ public class UserDao {
 		rs.close();
 		ps.close();
 		conn.close();
-		
+
 		if(user == null) throw new EmptyResultDataAccessException(1);
 
 		return user;
 	}
 
 	public void deleteAll() throws SQLException {
-		Connection conn = dataSource.getConnection();
+		Connection conn = null;
+		PreparedStatement ps = null;
 
-		PreparedStatement ps = conn.prepareStatement("delete from users");
-		ps.executeUpdate();
+		try {
+			conn = dataSource.getConnection();
+			ps = conn.prepareStatement("delete from users");
+			ps.executeUpdate();
 
-		ps.close();
-		conn.close();
+		} catch (SQLException e) {
+			System.out.println("SQL 예외 발생: " + e);
+			throw e;
+		}finally {
+			if(ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e2) {
+					System.out.println("SQL 예외 발생: " + e2);
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e2) {
+					System.out.println("SQL 예외 발생! : " + e2);
+				}
+			}
+		}
+
 	}
 
 	public int getCount() throws SQLException {
-		Connection conn = dataSource.getConnection();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
-		PreparedStatement ps = conn.prepareStatement("select count(*) from users");
+		try {
+			conn = dataSource.getConnection();
+			ps = conn.prepareStatement("select count(*) from users");
 
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		int count = rs.getInt(1);
-
-		rs.close();
-		ps.close();
-		conn.close();
-
-		return count;
+			rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("SQL 예외 발생 " + e);
+			throw e;
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e2) {
+					System.out.println("SQL예외발생: " + e2);
+				}
+			}
+			if(ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e2) {
+					System.out.println("SQL 예외 발생: " + e2);
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e2) {
+					System.out.println("SQL 예외 발생! : " + e2);
+				}
+			}
+		}
 	}
 }
 
