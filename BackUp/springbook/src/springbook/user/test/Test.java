@@ -1,7 +1,10 @@
-package springbook.user.dao;
+package springbook.user.test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import springbook.user.dao.DaoFactory;
+import springbook.user.dao.UserDao;
 
 public class Test {
 	
@@ -22,6 +25,7 @@ public class Test {
 		
 		System.out.println(dao3);
 		System.out.println(dao4);
+		
 	}
 
 }
