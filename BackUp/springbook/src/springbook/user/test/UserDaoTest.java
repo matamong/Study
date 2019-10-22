@@ -3,36 +3,100 @@ package springbook.user.test;
 
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
-import static org.junit.Assert.*; // is가 안 먹혀서 수동으로 추가
-import static org.hamcrest.CoreMatchers.*;  // is가 안 먹혀서 수동으로 추가
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.jta.SpringJtaSynchronizationAdapter;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import springbook.user.dao.UserDao;
 import springbook.user.domain.User;
 
+@RunWith(SpringJUnit4ClassRunner.class)  //테스트가 사용 할 애플리케이션 컨텍스트 만들고 관리해줌
+@ContextConfiguration(locations="/test-applicationContext.xml")   //관리 할 애플리케이션 위치 알려줌 (test dd파일로 옮겨줘따)
 public class UserDaoTest {
 	
-	@org.junit.Test
-	public void addAndGet() throws ClassNotFoundException, SQLException {
-		
-		ApplicationContext ac = new GenericXmlApplicationContext("applicationContext.xml");
+	@Autowired  // 테스트 오브젝트가 만들어지면 스프링 테스트 컨텍스트에 자동으로 값이 주입된다. 
+	private ApplicationContext ac; 
+	
+	@Autowired
+	private UserDao dao;
+	
+	private User user1;
+	private User user2;
+	private User user3;
+	
+	@Before
+	public void setUp() {
+		//ApplicationContext ac = new GenericXmlApplicationContext("applicationContext.xml");
 		//ApplicationContext ac = new AnnotationConfigApplicationContext(DaoFactory.class);
 		
-		UserDao dao = ac.getBean("userDao", UserDao.class);
+		//this.dao = this.ac.getBean("userDao", UserDao.class);
+		this.user1 = new User("Test1", "Test1", "Test1");
+		this.user2 = new User("Test2", "Test2", "Test2");
+		this.user3 = new User("Test3", "Test3", "Test3");
 		
-		User user = new User();
-		user.setId("JUnitTest");
-		user.setName("First");
-		user.setPassword("hungry");
-		
-		dao.add(user);
-		
-		User user2 = dao.get(user.getId());
-		
-		assertThat(user2.getName(), is(user.getName()));
-		assertThat(user2.getPassword(), is(user.getPassword()));
+		System.out.println(this.ac);
+		System.out.println(this);
 	}
 	
+	@Test
+	public void addAndGet() throws ClassNotFoundException, SQLException {
+		
+//		User user1 = new User("aAG1", "aAG1", "aAG1");
+//		User user2 = new User("aAG2", "aAG2", "aAG2");
+		
+		dao.deleteAll();		
+		
+		dao.add(user1);
+		dao.add(user2);
+		assertThat(dao.getCount(), is(2));
+		
+		User userGet1 = dao.get(user1.getId());
+		assertThat(userGet1.getName(), is(user1.getName()));
+		assertThat(userGet1.getPassword(), is(user1.getPassword()));
+		
+		User userGet2 = dao.get(user2.getId());
+		assertThat(userGet2.getName(), is(user2.getName()));
+		assertThat(userGet2.getPassword(), is(user2.getPassword()));
+	}
+	
+	@Test
+	public void count() throws SQLException, ClassNotFoundException {
+		
+//		User user1 = new User("Test1", "Test1", "Test1");
+//		User user2 = new User("Test2", "Test2", "Test2");
+//		User user3 = new User("Test3", "Test3", "Test3");
+		
+		dao.deleteAll();
+		assertThat(dao.getCount(), is(0));
+		
+		dao.add(user1);
+		assertThat(dao.getCount(), is(1));
+		
+		dao.add(user2);
+		assertThat(dao.getCount(), is(2));
+
+		dao.add(user3);
+		assertThat(dao.getCount(), is(3));
+	}
+	
+	@Test(expected=EmptyResultDataAccessException.class)
+	public void getUserFailure() throws SQLException, ClassNotFoundException {
+		
+		dao.deleteAll();
+		assertThat(dao.getCount(), is(0));
+		
+		dao.get("unknown_id");
+	}
 }
