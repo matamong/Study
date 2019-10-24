@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import springbook.user.dao.UserDao;
+import springbook.user.dao.UserDaoJdbc;
 import springbook.user.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)  //테스트가 사용 할 애플리케이션 컨텍스트 만들고 관리해줌
@@ -31,7 +31,7 @@ public class UserDaoTest {
 	private ApplicationContext ac; 
 	
 	@Autowired
-	private UserDao dao;
+	private UserDaoJdbc dao;
 	
 	private User user1;
 	private User user2;
