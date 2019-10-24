@@ -113,6 +113,10 @@ public class UserDaoTest {
 		checkSameUser(user3, users3.get(0));
 		checkSameUser(user1, users3.get(1));
 		checkSameUser(user2, users3.get(2));
+		
+		dao.deleteAll();
+		List<User> users0 = dao.getAll();
+		assertThat(users0.size(), is(0));
 	}
 	
 	@Test(expected=EmptyResultDataAccessException.class)

@@ -13,17 +13,15 @@ import org.springframework.jdbc.core.RowMapper;
 import springbook.user.domain.User;
 
 public class UserDao {
-	//private JdbcContext jdbcContext;
 	private JdbcTemplate jdbcTemplate;
-	private DataSource dataSource;
 	private Connection conn;
 	private User user;
+	
+	
 
 
 	public void setDataSource(DataSource dataSource){
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
-
-		this.dataSource = dataSource; // 이거는 아직 주입 적용 안시킨거 때문에 남겨둔거.
 	}
 
 	
