@@ -33,7 +33,7 @@ import springbook.user.domain.Levelu;
 import springbook.user.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)  //테스트가 사용 할 애플리케이션 컨텍스트 만들고 관리해줌
-@ContextConfiguration(locations="/test-applicationContext.xml")   //관리 할 애플리케이션 위치 알려줌 (test dd파일로 옮겨줘따)
+@ContextConfiguration(locations={"file:WebContent/WEB-INF/applicationContext.xml"})   //관리 할 애플리케이션 위치 알려줌 (test dd파일로 옮겨줘따)
 public class UserDaoTest {
 
 	@Autowired  // 테스트 오브젝트가 만들어지면 스프링 테스트 컨텍스트에 자동으로 값이 주입된다. 
@@ -73,7 +73,7 @@ public class UserDaoTest {
 		assertThat(dao.getCount(), is(2));
 
 		User userGet1 = dao.get(user1.getId());
-		checkSameUser(userGet1, user1);
+		checkSameUser(userGet1,  user1);
 
 		User userGet2 = dao.get(user2.getId());
 		checkSameUser(userGet2, user2);
@@ -124,6 +124,29 @@ public class UserDaoTest {
 		dao.deleteAll();
 		List<User> users0 = dao.getAll();
 		assertThat(users0.size(), is(0));
+	}
+	
+	@Test
+	public void update() {
+		dao.deleteAll();
+		
+		dao.add(user1);
+		dao.add(user2);
+		
+		user1.setName("오민규");
+		user1.setPassword("springno6");
+		user1.setLevelu(Levelu.GOLD);
+		user1.setLogin(1000);
+		user1.setRecommend(999);
+		
+		dao.update(user1);
+		
+		User user1update = dao.get(user1.getId());
+		checkSameUser(user1, user1update);
+		
+		User user2same = dao.get(user2.getId());
+		checkSameUser(user2, user2same);
+		
 	}
 
 	@Test(expected=EmptyResultDataAccessException.class)
