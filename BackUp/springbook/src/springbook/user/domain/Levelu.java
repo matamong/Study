@@ -1,11 +1,11 @@
 package springbook.user.domain;
 
-public enum Level {
+public enum Levelu {
 	BASIC(1), SILVER(2), GOLD(3);
 	
 	private final int value;
 	
-	Level(int value){
+	Levelu(int value){
 		this.value = value;
 	}
 	
@@ -13,7 +13,7 @@ public enum Level {
 		return value;
 	}
 	
-	public static Level valueOf(int value) {
+	public static Levelu valueOf(int value) {
 		switch(value) {
 			case 1: return BASIC;
 			case 2: return SILVER;

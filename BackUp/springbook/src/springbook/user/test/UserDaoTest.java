@@ -29,6 +29,7 @@ import org.junit.runner.RunWith;
 
 import springbook.user.dao.UserDao;
 import springbook.user.dao.UserDaoJdbc;
+import springbook.user.domain.Levelu;
 import springbook.user.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)  //테스트가 사용 할 애플리케이션 컨텍스트 만들고 관리해줌
@@ -54,9 +55,9 @@ public class UserDaoTest {
 		//ApplicationContext ac = new AnnotationConfigApplicationContext(DaoFactory.class);
 
 		//this.dao = this.ac.getBean("userDao", UserDao.class);
-		this.user1 = new User("bTest1", "Test1", "Test1");
-		this.user2 = new User("cTest2", "Test2", "Test2");
-		this.user3 = new User("aTest3", "Test3", "Test3");
+		this.user1 = new User("bTest1", "Test1", "Test1", Levelu.BASIC, 1, 0);
+		this.user2 = new User("cTest2", "Test2", "Test2", Levelu.SILVER, 55, 10);
+		this.user3 = new User("aTest3", "Test3", "Test3", Levelu.GOLD, 100, 40);
 
 		System.out.println(this.ac);
 		System.out.println(this);
@@ -65,9 +66,6 @@ public class UserDaoTest {
 	@Test
 	public void addAndGet() throws ClassNotFoundException, SQLException {
 
-		//		User user1 = new User("aAG1", "aAG1", "aAG1");
-		//		User user2 = new User("aAG2", "aAG2", "aAG2");
-
 		dao.deleteAll();		
 
 		dao.add(user1);
@@ -75,12 +73,10 @@ public class UserDaoTest {
 		assertThat(dao.getCount(), is(2));
 
 		User userGet1 = dao.get(user1.getId());
-		assertThat(userGet1.getName(), is(user1.getName()));
-		assertThat(userGet1.getPassword(), is(user1.getPassword()));
+		checkSameUser(userGet1, user1);
 
 		User userGet2 = dao.get(user2.getId());
-		assertThat(userGet2.getName(), is(user2.getName()));
-		assertThat(userGet2.getPassword(), is(user2.getPassword()));
+		checkSameUser(userGet2, user2);
 	}
 
 	@Test
@@ -163,5 +159,8 @@ public class UserDaoTest {
 		assertThat(user1.getId(), is(user2.getId()));
 		assertThat(user1.getName(), is(user2.getName()));
 		assertThat(user1.getPassword(), is(user2.getPassword()));
+		assertThat(user1.getLevelu(), is(user2.getLevelu()));
+		assertThat(user1.getLogin(), is(user2.getLogin()));
+		assertThat(user1.getRecommend(), is(user2.getRecommend()));
 	}
 }

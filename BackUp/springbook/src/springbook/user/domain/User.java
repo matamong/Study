@@ -4,17 +4,20 @@ public class User {
 	String id;
 	String name;
 	String password;
-	Level level;
+	Levelu levelu;
 	int login;
 	int recommend;
 	
 	
 	public User() {}
 	
-	public User(String id, String name, String password) {
+	public User(String id, String name, String password, Levelu levelu, int login, int recommend) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
+		this.levelu = levelu;
+		this.login = login;
+		this.recommend = recommend;
 	}
 	
 	public String getId() {
@@ -36,12 +39,12 @@ public class User {
 		this.password = password;
 	}
 
-	public Level getLevel() {
-		return level;
+	public Levelu getLevelu() {
+		return levelu;
 	}
 
-	public void setLevel(Level level) {
-		this.level = level;
+	public void setLevelu(Levelu levelu) {
+		this.levelu = levelu;
 	}
 
 	public int getLogin() {
