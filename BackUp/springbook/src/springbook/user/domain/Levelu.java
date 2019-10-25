@@ -1,16 +1,22 @@
 package springbook.user.domain;
 
 public enum Levelu {
-	BASIC(1), SILVER(2), GOLD(3);
+	GOLD(3, null), SILVER(2, GOLD), BASIC(1, SILVER); 
 	
 	private final int value;
+	private final Levelu next;
 	
-	Levelu(int value){
+	Levelu(int value, Levelu next){
 		this.value = value;
+		this.next = next;
 	}
 	
 	public int intValue() {
 		return value;
+	}
+	
+	public Levelu nextLevel() {
+		return this.next;
 	}
 	
 	public static Levelu valueOf(int value) {
@@ -21,5 +27,6 @@ public enum Levelu {
 			default: throw new AssertionError("Unknown value" + value);
 		}
 	}
+	
 
 }
