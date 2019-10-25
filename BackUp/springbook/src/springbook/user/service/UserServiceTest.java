@@ -19,10 +19,14 @@ import springbook.user.dao.UserDao;
 import springbook.user.domain.Levelu;
 import springbook.user.domain.User;
 
+import static springbook.user.service.UserService.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.service.UserService.MIN_RECCOMEND_FOR_GOLD;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:WebContent/WEB-INF/test-applicationContext.xml"})
 public class UserServiceTest {
+	
 	@Autowired    //dao도 주입시켜줘야 dao를 쓸 수 있다!
 	UserDao userDao;
 	
@@ -39,11 +43,11 @@ public class UserServiceTest {
 	@Before
 	public void setUp() {
 		users = Arrays.asList(
-				new User("girl1", "걸1", "p1", Levelu.BASIC, 49, 0),
-				new User("girl2", "걸2", "p2", Levelu.BASIC, 50, 0),
-				new User("girl3", "걸3", "p3", Levelu.SILVER, 60, 29),
-				new User("girl4", "걸4", "p4", Levelu.SILVER, 60, 30),
-				new User("girl5", "걸5", "p5", Levelu.GOLD, 100, 100)
+				new User("girl1", "걸1", "p1", Levelu.BASIC, MIN_LOGCOUNT_FOR_SILVER-1,0),
+				new User("girl2", "걸2", "p2", Levelu.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0),
+				new User("girl3", "걸3", "p3", Levelu.SILVER, MIN_RECCOMEND_FOR_GOLD-1, 29),
+				new User("girl4", "걸4", "p4", Levelu.SILVER, MIN_RECCOMEND_FOR_GOLD, 30),
+				new User("girl5", "걸5", "p5", Levelu.GOLD, 100, Integer.MAX_VALUE)
 				);
 		//테스트 값은 경계가 되는 값의 전후로 선택하는 것이 좋다.
 	}
@@ -55,11 +59,12 @@ public class UserServiceTest {
 		
 		userService.upgradeLevels();
 		
-		checkLevel(users.get(0), Levelu.BASIC);
-		checkLevel(users.get(1), Levelu.SILVER);
-		checkLevel(users.get(2), Levelu.SILVER);
-		checkLevel(users.get(3), Levelu.GOLD);
-		checkLevel(users.get(4), Levelu.GOLD);
+		checkLevelUpgraded(users.get(0), false);
+		checkLevelUpgraded(users.get(1), true);
+		checkLevelUpgraded(users.get(2), false);
+		checkLevelUpgraded(users.get(3), true);
+		checkLevelUpgraded(users.get(4), false);
+	
 	}
 	
 	@Test
@@ -80,9 +85,15 @@ public class UserServiceTest {
 		assertThat(userWithoutLevel.getLevelu(), is(Levelu.BASIC));
 	}
 	
-	private void checkLevel(User user, Levelu expectedLevel) {
+	
+	private void checkLevelUpgraded(User user, boolean upgraded) {
 		User userUpdate = userDao.get(user.getId());
-		assertThat(userUpdate.getLevelu(), is(expectedLevel));
+		if(upgraded) {
+			assertThat(userUpdate.getLevelu(), is(user.getLevelu().nextLevel()));
+		}
+		else {
+			assertThat(userUpdate.getLevelu(), is(user.getLevelu()));
+		}
 	}
 	
 }
