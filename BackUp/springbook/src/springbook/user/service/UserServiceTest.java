@@ -1,15 +1,18 @@
 package springbook.user.service;
 
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
+import javax.sql.DataSource;
 
-import static org.hamcrest.CoreMatchers.*;
+
 
 import org.junit.Test;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,18 +30,14 @@ import static springbook.user.service.UserService.MIN_RECCOMEND_FOR_GOLD;
 @ContextConfiguration(locations={"file:WebContent/WEB-INF/test-applicationContext.xml"})
 public class UserServiceTest {
 	
-	@Autowired    //dao도 주입시켜줘야 dao를 쓸 수 있다!
-	UserDao userDao;
+	@Autowired UserDao userDao;   //dao도 주입시켜줘야 dao를 쓸 수 있다!
 	
-	@Autowired
-	UserService userService;
+	@Autowired UserService userService;
+	
+	@Autowired DataSource dataSource;
 
 	List<User> users;
 	
-	@Test //UserService의 빈이 생성되고 여기에 제대로 주입됐는지 확인 용
-	public void bean() {
-		assertThat(this.userService, is(notNullValue()));
-	}
 	
 	@Before
 	public void setUp() {
@@ -53,9 +52,9 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void upgradeLevels() {
+	public void upgradeLevels() throws Exception {
 		userDao.deleteAll();
-		for(User user: users) userDao.add(user);
+		for(User user : users) userDao.add(user);
 		
 		userService.upgradeLevels();
 		
@@ -64,7 +63,6 @@ public class UserServiceTest {
 		checkLevelUpgraded(users.get(2), false);
 		checkLevelUpgraded(users.get(3), true);
 		checkLevelUpgraded(users.get(4), false);
-	
 	}
 	
 	@Test
@@ -96,4 +94,43 @@ public class UserServiceTest {
 		}
 	}
 	
+	@Test
+	public void upgradeAllOrNothing() throws Exception {
+		UserService testUserService = new TestUserService(users.get(3).getId());  
+		testUserService.setUserDao(this.userDao); 
+		testUserService.setDataSource(this.dataSource);
+		 
+		userDao.deleteAll();			  
+		for(User user : users) userDao.add(user);
+		
+		try {
+			testUserService.upgradeLevels();   
+			fail("TestUserServiceException expected"); 
+		}
+		catch(TestUserServiceException e) { 
+		}
+		
+		checkLevelUpgraded(users.get(1), false);
+	}
+	
+	
+	
+	//test용
+	static class TestUserService extends UserService{
+		private String id;
+		
+		private TestUserService(String id) {
+			this.id = id;
+		}
+		
+		@Override
+		public void upgradeLevel(User user) {
+			if(user.getId().equals(this.id)) throw new TestUserServiceException();
+			super.upgradeLevel(user);
+		}
+	}
+	
+	static class TestUserServiceException extends RuntimeException{
+	}
 }
+
