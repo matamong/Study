@@ -41,9 +41,6 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 	
-	public void setTransactionManager(PlatformTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
-	}
 	
 	public void setMailSender(MailSender mailSender) {
 		this.mailSender = mailSender;
