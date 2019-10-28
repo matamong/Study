@@ -3,14 +3,24 @@ package springbook.user.service;
 import java.sql.Connection;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
+
+import com.sun.xml.internal.fastinfoset.sax.Properties;
 
 import springbook.user.dao.UserDao;
 import springbook.user.domain.Levelu;
@@ -24,6 +34,7 @@ public class UserService {
 	
 	private PlatformTransactionManager transactionManager;  //PlatformTransactionManager를 위한 trans..
 	
+	private MailSender mailSender;
 	
 	//userDao를 주입받기 위해 setter
 	public void setUserDao(UserDao userDao) {
@@ -32,6 +43,10 @@ public class UserService {
 	
 	public void setTransactionManager(PlatformTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;
+	}
+	
+	public void setMailSender(MailSender mailSender) {
+		this.mailSender = mailSender;
 	}
 	
 	public void upgradeLevels() throws Exception {
@@ -67,6 +82,17 @@ public class UserService {
 	public void upgradeLevel(User user) {
 		user.upgradeLevel();
 		userDao.update(user);
+		sendUpgradeEmail(user);
+	}
+	
+	private void sendUpgradeEmail(User user) {
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setTo(user.getEmail());
+		mailMessage.setFrom("useradmin@ksug.org");
+		mailMessage.setSubject("Upgrade 안내");
+		mailMessage.setText("사용자님의 등급이 " + user.getLevelu().name());
+		
+		this.mailSender.send(mailMessage);
 	}
 	
 
