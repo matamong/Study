@@ -174,5 +174,38 @@ public class UserServiceTest {
 			
 		}
 	}
+	
+	static class MockUserDao implements UserDao{
+		//레벨 업그레이드 후보 User오브젝트 목록
+		private List<User> users;
+
+		//업그레이드 대상 오브젝트를 저장해둘 목록
+		private List<User> updated = new ArrayList();
+		
+		private MockUserDao(List<User> users) {
+			this.users = users;
+		}
+		
+		private List<User> getUpdated(){
+			return this.updated;
+		}
+		
+		//스텁 기능 제공
+		public List<User> getAll(){
+			return this.users;
+		}
+		
+		//목 오브젝트 기능
+		public void update(User user) {
+			updated.add(user);
+		}
+		
+		
+		//UserDao를 implements하면서 쓰이지 않는 메소드
+		public void add(User user) {throw new UnsupportedOperationException();}
+		public void deleteAll() {throw new UnsupportedOperationException();}
+		public User get(String id) {throw new UnsupportedOperationException();}
+		public int getCount() {throw new UnsupportedOperationException();}
+	}
 }
 
