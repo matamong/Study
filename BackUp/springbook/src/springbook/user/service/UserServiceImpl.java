@@ -26,15 +26,15 @@ import springbook.user.dao.UserDao;
 import springbook.user.domain.Levelu;
 import springbook.user.domain.User;
 
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 	public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
 	public static final int MIN_RECCOMEND_FOR_GOLD = 30;
 	
-	private UserDao userDao;
+	 UserDao userDao;
 	
-	private PlatformTransactionManager transactionManager;  //PlatformTransactionManager를 위한 trans..
+	//private PlatformTransactionManager transactionManager;  //PlatformTransactionManager를 위한 trans..
 	
-	private MailSender mailSender;
+	MailSender mailSender;
 	
 	//userDao를 주입받기 위해 setter
 	public void setUserDao(UserDao userDao) {
@@ -49,15 +49,12 @@ public class UserServiceImpl {
 		this.mailSender = mailSender;
 	}
 	
-	public void upgradeLevels() throws Exception {
-		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition());
-		
-		try {
-			upgradeLevelIsInternal();
-			this.transactionManager.commit(status);
-		} catch (RuntimeException e) {
-			this.transactionManager.rollback(status);
-			throw e;
+	public void upgradeLevels() {
+		List<User> users = userDao.getAll();
+		for(User user : users) {
+			if(canUpgradeLevel(user)) {
+				upgradeLevel(user);
+			}
 		}
 	}
 	
