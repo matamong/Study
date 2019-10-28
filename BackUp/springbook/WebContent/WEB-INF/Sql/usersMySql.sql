@@ -18,5 +18,6 @@ create table users(
 	Password varchar(20) not null,
 	Level tinyint not null,
 	Login int not null,
-	Recommend int not null
+	Recommend int not null,
+    Email varchar(50) not null
 );
