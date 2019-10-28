@@ -25,6 +25,82 @@ SOLID는 기존의 높은 응집도, 낮은 결합도를 위한 프로그래밍 
 > "어떤 클래스를 변경해야 하는 이유는 오직 하나뿐이어야 한다." - 로버트 C. 마틴
 
 SRP를 대표하는 로버트 C.마틴의 말이다.이 말을 좀 더 풀어서 생각해보면 **클래스의 역할(책임)을 분리하고 하나의 클래스에 하나의 책임만 가지게 하여야 한다**라고 생각 할 수도 있을 것 같다.  <br><br>
+
+코드로 예를 들어보자
+
+```java
+public class Service{
+
+    private DataSource dataSource;
+
+    public void setDataSource(dataSource){
+        this.dataSource = dataSource;
+    }
+
+
+    //연결한 데이터베이스의 내용을 가져와 어떤 작업을 수행하는 메소드
+    public void doService{
+        TransactionSynchronizationManager.initSynchronizer();
+        Connection c = DataSourceUtiols.getConnection(dataSource);
+        c.setAutoComit(false);
+        //트랜잭션을 사용하기 위한 세팅
+
+        try{
+            //수행 해야 할 비즈니스 로직
+        }catch{
+            //예외
+        }
+        
+        //대충 트랜잭션 정리 코드
+    }
+}
+```
+여기 이 Service라는 클래스의 doService메소드를 한 번 보자. <br>
+DB의 내용을 가지고 비즈니스로직을 처리하는 역할을 하고있다.(dataSource는 미리 주입받았다고 가정하자)<br><br>
+
+이 클래스는 얼핏보면 DB에 연결하고 연결한 데이터베이스의 내용을 가지고 작업을 하기 때문에 단일 책임 원칙을 잘 지킨 것 같이 보인다. <br> 
+하지만 JDBC의 API인 현재 트랜잭션을 글로벌 트랜잭션인 JTX로 바꿔달라는 요청이 있을 경우에는 아래와 같이 코드를 바꿔야 한다.
+
+```java
+public class Service{
+
+    private DataSource dataSource;
+
+    public void setDataSource(dataSource){
+        this.dataSource = dataSource;
+    }
+
+
+    //연결한 데이터베이스의 내용을 가져와 어떤 작업을 수행하는 메소드
+    public void doService{
+        InitalContext ctx = new InitialContext();
+        UserTransaction tx = (UserTransaction)ctx.lookup(USER_TX_JNDI_NAME);
+        tx.begin();
+        Connection conn = dataSource.getConnection();
+        //트랜잭션을 사용하기 위한 세팅
+
+        try{
+            //수행 해야 할 비즈니스 로직
+        }catch{
+            //예외
+        }
+        
+        //대충 트랜잭션 정리 코드
+    }
+}
+```
+간단하다. 다른 코드들은 다 내버려두고 트랜잭션을 사용하기 위한 세팅만 바꾸면 된다. <br>
+그런데 나중에는 하이버네이트를 이용해서 트랜잭션 관리를 해달라는 요청이 들어온다. 그럼 그 때는 Connection이 아닌 Session을 이용하여 독자적인 API를 사용해야 할 것이다. <br><br> 이 과정에서 다시 한 번 상기해보자. <br><br>
+**이 클래스는 비즈니스 로직을 수행해야 하는 클래스이다.** 
+<br><br>
+그런데 **정작 트랜잭션 관리라는 다른 이유 때문에 원래의 코드는 전혀 변경하지 않은 채로 계속 클래스를 수정해야만 하는 것이다!!**  <br>
+자신의 책임이 아닌 다른 책임 때문에 클래스를 수정하는 이러한 경우는 SRP원칙에 위배되어버린다. <br>
+이럴 때는 추상화와 DI방식을 이용해서 트랜잭션 관리라는 책임을 외부에서 조종할 수 있도록 하여 한 클래스에서는 하나의 책임만 지도록 함으로써 SRP 원칙을 지킬 수 있을 것이다.
+
+
+
+
+
 # OCP
 # LSP
 # ISP
@@ -141,4 +217,6 @@ class MyPhone {
 
 
 * * *
-[ 참고도서 ] **`<<스프링 입문을 위한 자바 객체 지향의 원리와 이해>>`** - 지은이 김종민
+[ 참고도서 ] <br> 
+**`<<스프링 입문을 위한 자바 객체 지향의 원리와 이해>>`** - 지은이 김종민 <br>
+**`<<토비의 스프링 3.1>>`** - 지은이 이일민
