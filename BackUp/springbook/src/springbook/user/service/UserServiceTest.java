@@ -3,6 +3,7 @@ package springbook.user.service;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,11 +11,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-
-
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.junit.MockitoJUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
@@ -24,9 +25,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import javafx.beans.binding.When;
 import springbook.user.dao.UserDao;
 import springbook.user.domain.Levelu;
 import springbook.user.domain.User;
+import sun.util.logging.PlatformLogger.Level;
 
 import static springbook.user.service.UserServiceImpl.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.service.UserServiceImpl.MIN_RECCOMEND_FOR_GOLD;
@@ -69,26 +72,33 @@ public class UserServiceTest {
 		//고립된 테스트에서는 테스트 대상 오브젝트를 직접 생성하면 된다.
 		UserServiceImpl userServiceImpl = new UserServiceImpl();
 		
-		//목 오브젝트로 만든 UserDao를 직접 주입한다.
-		MockUserDao mockUserDao = new MockUserDao(this.users);
+		//목 오브젝트 생성, 메소드 리턴 값 설정, DI
+		UserDao mockUserDao = mock(UserDao.class);
+		when(mockUserDao.getAll()).thenReturn(this.users);
 		userServiceImpl.setUserDao(mockUserDao);
 		
-		MockMailSender mockMailSender = new MockMailSender();
+		//return 값이 없는 목 오브젝트 생성
+		MailSender mockMailSender = mock(MailSender.class);
 		userServiceImpl.setMailSender(mockMailSender);
 		
 		userServiceImpl.upgradeLevels();
 		
-		//MockUserDao로부터 업데이트 결과를 가져온다.
-		List<User> updated = mockUserDao.getUpdated();
+		//어떤 메소드가 몇 번 호출 됐는지, 파라미터는 무엇인지 확인
+		verify(mockUserDao, times(2)).update(any(User.class));
+		verify(mockUserDao, times(2)).update(any(User.class));
+		verify(mockUserDao).update(users.get(1));
+		assertThat(users.get(1).getLevelu(), is(Levelu.SILVER));
+		verify(mockUserDao).update(users.get(3));
+		assertThat(users.get(3).getLevelu(), is(Levelu.GOLD));
 		
-		assertThat(updated.size(), is(2));
-		checkUserAndLevel(updated.get(0), "girl2", Levelu.SILVER);
-		checkUserAndLevel(updated.get(1), "girl4", Levelu.GOLD);
+		//파라미터를 정밀하게 검사하기 위해 캡처.
+		ArgumentCaptor<SimpleMailMessage> mailMessageArg =
+				ArgumentCaptor.forClass(SimpleMailMessage.class);
+		verify(mockMailSender, times(2)).send(mailMessageArg.capture());
 		
-		List<String> request = mockMailSender.getRequests();
-		assertThat(request.size(), is(2));
-		assertThat(request.get(0), is(users.get(1).getEmail()));
-		assertThat(request.get(1), is(users.get(3).getEmail()));
+		List<SimpleMailMessage> mailMessages = mailMessageArg.getAllValues();
+		assertThat(mailMessages.get(0).getTo()[0], is(users.get(1).getEmail()));
+		assertThat(mailMessages.get(1).getTo()[0], is(users.get(3).getEmail()));
 		
 	}
 	
