@@ -38,7 +38,9 @@ public class UserServiceTest {
 	
 	@Autowired UserDao userDao;   //dao도 주입시켜줘야 dao를 쓸 수 있다!
 	
-	@Autowired UserServiceImpl userService;
+	@Autowired UserService userService;
+	
+	@Autowired UserServiceImpl userServiceImpl;
 	
 	@Autowired DataSource dataSource;
 	
@@ -68,7 +70,7 @@ public class UserServiceTest {
 		for(User user : users) userDao.add(user);
 		
 		MockMailSender mockMailSender = new MockMailSender();
-		userService.setMailSender(mockMailSender);
+		userServiceImpl.setMailSender(mockMailSender);
 		
 		userService.upgradeLevels();
 		
@@ -117,14 +119,17 @@ public class UserServiceTest {
 	public void upgradeAllOrNothing() throws Exception {
 		UserServiceImpl testUserService = new TestUserService(users.get(3).getId());  
 		testUserService.setUserDao(userDao); 
-		testUserService.setTransactionManager(transactionManager);
 		testUserService.setMailSender(mailSender);
+		
+		UserServiceTx txUserService = new UserServiceTx();
+		txUserService.setTransactionManager(transactionManager);
+		txUserService.setUserService(testUserService);
 		 
 		userDao.deleteAll();			  
 		for(User user : users) userDao.add(user);
 		
 		try {
-			testUserService.upgradeLevels();   
+			txUserService.upgradeLevels();   
 			fail("TestUserServiceException expected"); 
 		}
 		catch(TestUserServiceException e) { 
