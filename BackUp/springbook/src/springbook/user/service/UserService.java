@@ -5,7 +5,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import springbook.user.dao.UserDao;
@@ -18,7 +22,7 @@ public class UserService {
 	
 	private UserDao userDao;
 	
-	private DataSource dataSource;   //트랜잭션을 위한 dataSource
+	private PlatformTransactionManager transactionManager;  //PlatformTransactionManager를 위한 trans..
 	
 	
 	//userDao를 주입받기 위해 setter
@@ -26,14 +30,12 @@ public class UserService {
 		this.userDao = userDao;
 	}
 	
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public void setTransactionManager(PlatformTransactionManager transactionManager) {
+		this.transactionManager = transactionManager;
 	}
 	
 	public void upgradeLevels() throws Exception {
-		TransactionSynchronizationManager.initSynchronization();  
-		Connection c = DataSourceUtils.getConnection(dataSource); 
-		c.setAutoCommit(false);
+		TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition());
 		
 		try {									   
 			List<User> users = userDao.getAll();
@@ -42,14 +44,10 @@ public class UserService {
 					upgradeLevel(user);
 				}
 			}
-			c.commit();  
-		} catch (Exception e) {    
-			c.rollback();
+			this.transactionManager.commit(status);
+		} catch (RuntimeException e) {
+			this.transactionManager.rollback(status);
 			throw e;
-		} finally {
-			DataSourceUtils.releaseConnection(c, dataSource);	
-			TransactionSynchronizationManager.unbindResource(this.dataSource);  
-			TransactionSynchronizationManager.clearSynchronization();  
 		}
 	}
 
@@ -71,6 +69,7 @@ public class UserService {
 		userDao.update(user);
 	}
 	
+
 	public void add(User user) {
 		if(user.getLevelu() == null) user.setLevelu(Levelu.BASIC);
 		userDao.add(user);

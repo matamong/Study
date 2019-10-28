@@ -55,9 +55,9 @@ public class UserDaoTest {
 		//ApplicationContext ac = new AnnotationConfigApplicationContext(DaoFactory.class);
 
 		//this.dao = this.ac.getBean("userDao", UserDao.class);
-		this.user1 = new User("bTest1", "Test1", "Test1", Levelu.BASIC, 1, 0);
-		this.user2 = new User("cTest2", "Test2", "Test2", Levelu.SILVER, 55, 10);
-		this.user3 = new User("aTest3", "Test3", "Test3", Levelu.GOLD, 100, 40);
+		this.user1 = new User("bTest1", "Test1", "Test1", Levelu.BASIC, 1, 0, "test1@test");
+		this.user2 = new User("cTest2", "Test2", "Test2", Levelu.SILVER, 55, 10, "test2@test");
+		this.user3 = new User("aTest3", "Test3", "Test3", Levelu.GOLD, 100, 40, "test3@test");
 
 		System.out.println(this.ac);
 		System.out.println(this);
@@ -81,10 +81,6 @@ public class UserDaoTest {
 
 	@Test
 	public void count() throws SQLException, ClassNotFoundException {
-
-		//		User user1 = new User("Test1", "Test1", "Test1");
-		//		User user2 = new User("Test2", "Test2", "Test2");
-		//		User user3 = new User("Test3", "Test3", "Test3");
 
 		dao.deleteAll();
 		assertThat(dao.getCount(), is(0));
@@ -138,6 +134,7 @@ public class UserDaoTest {
 		user1.setLevelu(Levelu.GOLD);
 		user1.setLogin(1000);
 		user1.setRecommend(999);
+		user1.setEmail("update@test");
 		
 		dao.update(user1);
 		
@@ -185,5 +182,6 @@ public class UserDaoTest {
 		assertThat(user1.getLevelu(), is(user2.getLevelu()));
 		assertThat(user1.getLogin(), is(user2.getLogin()));
 		assertThat(user1.getRecommend(), is(user2.getRecommend()));
+		assertThat(user1.getEmail(), is(user2.getEmail()));
 	}
 }

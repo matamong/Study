@@ -25,6 +25,7 @@ public class UserDaoJdbc implements UserDao{
 					user.setLevelu(Levelu.valueOf(rs.getInt("levelu")));
 					user.setLogin(rs.getInt("login"));
 					user.setRecommend(rs.getInt("recommend"));
+					user.setEmail(rs.getString("email"));
 					return user;
 				}
 	};
@@ -36,9 +37,9 @@ public class UserDaoJdbc implements UserDao{
 	
 	public void add( User user) {
 		this.jdbcTemplate.update(
-				"insert into users(id, name, password, levelu, login, recommend) values(?,?,?,?,?,?)",
+				"insert into users(id, name, password, levelu, login, recommend, email) values(?,?,?,?,?,?,?)",
 				user.getId(), user.getName(), user.getPassword(), 
-				user.getLevelu().intValue(), user.getLogin(), user.getRecommend());
+				user.getLevelu().intValue(), user.getLogin(), user.getRecommend(), user.getEmail());
 	}
 
 	public void deleteAll() {
@@ -64,10 +65,10 @@ public class UserDaoJdbc implements UserDao{
 	@Override
 	public void update(User user) {
 		this.jdbcTemplate.update(
-				"update users set name=?, password=?, levelu=?, login=?,recommend=? where id=?",
+				"update users set name=?, password=?, levelu=?, login=?,recommend=?, email=? where id=?",
 				user.getName(), user.getPassword(),
 				user.getLevelu().intValue(), user.getLogin(),
-				user.getRecommend(),user.getId());
+				user.getRecommend(),user.getEmail(),user.getId());
 	}
 }
 

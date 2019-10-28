@@ -7,11 +7,12 @@ public class User {
 	Levelu levelu;
 	int login;
 	int recommend;
+	String email;
 	
 	
 	public User() {}
 	
-	public User(String id, String name, String password, Levelu levelu, int login, int recommend) {
+	public User(String id, String name, String password, Levelu levelu, int login, int recommend, String email) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -71,5 +72,15 @@ public class User {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 
 }
