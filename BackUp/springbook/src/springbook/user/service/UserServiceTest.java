@@ -28,8 +28,8 @@ import springbook.user.dao.UserDao;
 import springbook.user.domain.Levelu;
 import springbook.user.domain.User;
 
-import static springbook.user.service.UserService.MIN_LOGCOUNT_FOR_SILVER;
-import static springbook.user.service.UserService.MIN_RECCOMEND_FOR_GOLD;
+import static springbook.user.service.UserServiceImpl.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.service.UserServiceImpl.MIN_RECCOMEND_FOR_GOLD;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,7 +38,7 @@ public class UserServiceTest {
 	
 	@Autowired UserDao userDao;   //dao도 주입시켜줘야 dao를 쓸 수 있다!
 	
-	@Autowired UserService userService;
+	@Autowired UserServiceImpl userService;
 	
 	@Autowired DataSource dataSource;
 	
@@ -115,7 +115,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void upgradeAllOrNothing() throws Exception {
-		UserService testUserService = new TestUserService(users.get(3).getId());  
+		UserServiceImpl testUserService = new TestUserService(users.get(3).getId());  
 		testUserService.setUserDao(userDao); 
 		testUserService.setTransactionManager(transactionManager);
 		testUserService.setMailSender(mailSender);
@@ -137,7 +137,7 @@ public class UserServiceTest {
 	
 	
 	//test용
-	static class TestUserService extends UserService{
+	static class TestUserService extends UserServiceImpl{
 		private String id;
 		
 		private TestUserService(String id) {
