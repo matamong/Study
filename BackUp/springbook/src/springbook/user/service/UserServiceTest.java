@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.junit.MockitoJUnit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -51,6 +52,8 @@ public class UserServiceTest {
 	@Autowired PlatformTransactionManager transactionManager;
 	
 	@Autowired MailSender mailSender;
+	
+	@Autowired ApplicationContext context;
 
 	List<User> users;
 	
@@ -137,24 +140,19 @@ public class UserServiceTest {
 		}
 	}
 	
+	
 	@Test
+	@DirtiesContext
 	public void upgradeAllOrNothing() throws Exception {
-		
-
 		
 		UserServiceImpl testUserService = new TestUserService(users.get(3).getId());  
 		testUserService.setUserDao(userDao); 
 		testUserService.setMailSender(mailSender);
 		
-		//트랜잭션 핸들러가 필요한 정보와 오브젝트를 DI해준다.
-		TransactionHandler txHandler = new TransactionHandler();
-		txHandler.setTarget(testUserService);
-		txHandler.setTransactionManager(transactionManager);
-		txHandler.setPatter("upgradeLevels");
-		
-		//UserService 인터페이스 타입의 다이내믹 프록시 생성
-		UserService txUserService = (UserService)Proxy.newProxyInstance(
-				getClass().getClassLoader(), new Class[] {UserService.class}, txHandler);
+		TxProxyFactoryBean txProxyFactoryBean = 
+				context.getBean("&userService", TxProxyFactoryBean.class); //테스트 타깃 주입
+		txProxyFactoryBean.setTarget(testUserService);
+		UserService txUserService = (UserService) txProxyFactoryBean.getObject();
 		
 		userDao.deleteAll();			  
 		for(User user : users) userDao.add(user);
