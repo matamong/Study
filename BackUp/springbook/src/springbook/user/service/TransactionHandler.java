@@ -27,16 +27,17 @@ public class TransactionHandler implements InvocationHandler{
 		this.transactionManager = transactionManager;
 	}
 	
-	public void setPatter(String patter) {
+	public void setPatter(String pattern) {
 		this.pattern = pattern;
 	}
 	
 	
 	//트랜잭션 적용 대상 메소드를 선ㅁ별해서 트랜잭션 경계설정 기능을 부여해준다.
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable{
-		if(method.getName().startsWith(pattern)) {
+	public Object invoke(Object proxy, Method method, Object[] args)
+			throws Throwable {
+		if (method.getName().startsWith(pattern)) {
 			return invokeInTransaction(method, args);
-		}else {
+		} else {
 			return method.invoke(target, args);
 		}
 	}
