@@ -45,10 +45,7 @@ public class UserServiceTest {
 	@Autowired UserDao userDao;   //dao도 주입시켜줘야 dao를 쓸 수 있다!
 	
 	@Autowired UserService userService;
-	
-	@Autowired UserServiceImpl userServiceImpl;
-	
-	@Autowired DataSource dataSource;
+	@Autowired UserService testUserService;
 	
 	@Autowired PlatformTransactionManager transactionManager;
 	
@@ -146,36 +143,22 @@ public class UserServiceTest {
 	@DirtiesContext
 	public void upgradeAllOrNothing() throws Exception {
 		
-		UserServiceImpl testUserService = new TestUserService(users.get(3).getId());  
-		testUserService.setUserDao(userDao); 
-		testUserService.setMailSender(mailSender);
-		
-		ProxyFactoryBean txProxyFactoryBean = 
-				context.getBean("&userService", ProxyFactoryBean.class); //테스트 타깃 주입
-		txProxyFactoryBean.setTarget(testUserService);
-		UserService txUserService = (UserService) txProxyFactoryBean.getObject();
-		
 		userDao.deleteAll();			  
 		for(User user : users) userDao.add(user);
 		
 		try {
-			txUserService.upgradeLevels();   
+			this.testUserService.upgradeLevels();   
 			fail("TestUserServiceException expected"); 
 		}
 		catch(TestUserServiceException e) { 
 		}
 		
 		checkLevelUpgraded(users.get(1), false);
-		testUserService.setMailSender(mailSender);
 	}
 	
 	//test용
-	static class TestUserService extends UserServiceImpl{
-		private String id;
-		
-		private TestUserService(String id) {
-			this.id = id;
-		}
+	static class TestUserServiceImpl extends UserServiceImpl{
+		private String id = "girl4";
 		
 		@Override
 		public void upgradeLevel(User user) {
