@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import org.json.XML;
 
 public class XmlToJSONTest {
-	public static int INDENT_FACTOR = 4;
+	//public static int INDENT_FACTOR = 4;
 	
 	public static void main(String[] args) throws MalformedURLException, IOException {
 		String apiUrl = "http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20140301&endde=20140430&pageNo=1&numOfRows=10&ServiceKey=";
