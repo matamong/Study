@@ -3,9 +3,10 @@ package apiTest.kakaoMap;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 
 public class RequestToKamap {
@@ -20,11 +21,24 @@ public class RequestToKamap {
 			HttpResponse<JsonNode> response = Unirest.get(apiURL)				//해당 API URL에서
 												.header("Authorization", APIKey) // APIKey를 이용해서 권한을 얻는다.
 												.asJson();						// response는 JSon으로
+			
+			//받아온 데이터를 jackson의 objectMapper을 이용해서 json으로 변환
+			ObjectMapper objectMapper = new ObjectMapper();
+			//단일 리스트 객체가 있으면 싱글 값 같게 인식시켜줌 (ex: "family" : ["me"] -> "family" : "me" )
+			objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+			
+			//지정된 VO에 응답받은 데이터를 셋팅
+			KakaoGeoRes bodyJson = objectMapper.readValue(response.getBody().toString(), KakaoGeoRes.class);
+			
+			
+			bodyJson.getDocuments().get(0).getX();
+			bodyJson.getDocuments().get(0).getY();
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
-
 	}
 }
