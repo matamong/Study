@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #wrap{
+            width: 200px;
+            border: 1px solid black;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        
+        #wrap div{
+            width: 100px;
+            height: 100px;
+        }
+        #wrap div:nth-child(1){
+            background-color: red;
+        }
+        #wrap div:nth-child(2){
+            background-color: blue;
+        }
+        #wrap div:nth-child(3){
+            background-color: green;
+        }
+        #wrap div:nth-child(4){
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>
