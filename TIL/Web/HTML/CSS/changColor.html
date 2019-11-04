@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 50px;
+            border: 1px solid black;
+            background-color: pink;
+            cursor: pointer;
+        }
+        div:hover{
+            background-color: hotpink;
+        }
+        label{
+            width: 50px;
+            height: 50px;
+            background-color: skyblue;
+            display: inline-block;
+        }
+        #aaa:checked + label{
+            background-color: blue;
+        }
+        #aaa:checked + label + .box{
+            display: block;
+        }
+        #aaa{
+            display: none;
+        }
+        .box{
+            width: 50px;
+            height: 50px;
+            background-color: lightgreen;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <input type="checkbox" id="aaa">
+    <label for="aaa"></label>
+    <div class="box"></div>
+</body>
+</html>

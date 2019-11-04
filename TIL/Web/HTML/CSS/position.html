@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .box1{
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+            margin-left: 200px;
+        }
+        .box1 div{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            left: 50px;
+        }
+        
+        
+        /*
+        relative & absolute를 해야 부모의 위치를 참조한다.
+        */
+                .box2{
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+            position: relative;
+            margin-left: 200px;
+        }
+        .box2 div{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div></div>
+    </div>
+    <div class="box2">
+        <div></div>
+    </div>
+</body>
+</html>
