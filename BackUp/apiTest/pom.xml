@@ -37,6 +37,13 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+		<!-- HttpClient (Apache를 이용해서 간편하게 다른 서버에 request보내고 response 받기 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.4</version>
+		</dependency>
 
 		<!-- xml To Json -->
 		<dependency>
