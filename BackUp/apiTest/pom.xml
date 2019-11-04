@@ -38,15 +38,11 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- HttpClient (Apache를 이용해서 간편하게 다른 서버에 request보내고 response 받기
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.4</version>
-		</dependency>
-		  -->
-		
-		<!-- unirest는 Http 요청(REST API)을 쉽게 보낼수 있는 라이브러리.-->
+		<!-- HttpClient (Apache를 이용해서 간편하게 다른 서버에 request보내고 response 받기 <dependency> 
+			<groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
+			<version>4.4</version> </dependency> -->
+
+		<!-- unirest는 Http 요청(REST API)을 쉽게 보낼수 있는 라이브러리. -->
 		<dependency>
 			<groupId>com.mashape.unirest</groupId>
 			<artifactId>unirest-java</artifactId>
@@ -59,6 +55,15 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind 
+		jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
