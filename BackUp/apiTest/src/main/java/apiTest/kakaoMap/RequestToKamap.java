@@ -37,7 +37,12 @@ public class RequestToKamap {
 			
 			double x = bodyJson.getDocuments().get(0).getX();
 			System.out.println(x);
-			bodyJson.getDocuments().get(0).getY();
+			double y = bodyJson.getDocuments().get(0).getY();
+			System.out.println(y);
+			String name = bodyJson.getDocuments().get(0).getAddress_name();
+			System.out.println(name);
+			String addressType = bodyJson.getDocuments().get(0).getAddress_type();
+			System.out.println(addressType);
 			
 
 		} catch (Exception e) {
