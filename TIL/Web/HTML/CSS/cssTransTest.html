@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .wrap{
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            padding: 20px;
+        }
+        .rotatebox1{
+            
+            background-color: blue;
+            width:200px;
+            height: 200px;
+            position: absolute;
+        }
+        .rotatebox2{
+            background-color: red;
+            width:200px;
+            height: 200px;
+            position: absolute;
+        }
+        .rotate{
+            transform-origin: 0% 0%;
+        }
+        .rotate:hover{
+            transition: transform 1s linear;
+            transform: rotate(-70deg);
+        }
+        
+        .delay{
+            width: 100px;
+            height: 50px;
+            background-color: blue;
+            transition: width 1s;
+
+        }
+        .delay:hover{
+            background-color: green;
+            transition: width 1s;
+            width: 300px;
+        }
+        
+        .complexbox{
+            width: 200px;
+            height: 200px;
+            background-image: url(matamong.png);
+        }
+        .complex{
+            transform: cale(.5) rotate(20deg);
+        }
+        .complex:hover{
+            transition: transform 1s linear;
+            transform: scale(1) rotate(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="rotatebox1"></div>
+        <div class="rotatebox2 box rotate"></div>
+    </div>
+    <div class="wrap">
+        <div class="delay"></div>
+    </div>
+    <div class="wrap">
+        <div class="complexbox box complex"></div>
+    </div>
+</body>
+</html>

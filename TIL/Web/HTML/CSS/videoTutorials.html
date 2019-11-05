@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-size: 17px;
+        }
+        #myVideo {
+            min-width: 100%;
+            min-height: 100%;
+            position: fixed;
+            /* position fixed 할 때 고정값이 없으면 위치가 바뀐다.*/
+            bottom: 0;
+            right: 0;
+        }
+        .content{
+            position: fixed;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            color: #f1f1f1;
+            width: 100%;
+            padding: 20px;
+        }
+        #myBtn{
+            width: 200px;
+            font-size: 18px;
+            padding: 10px;
+            border: none;
+            color: #fff;
+            background: #000;
+            cursor: pointer;
+        }
+        #myBtn:hover{
+            background: #ddd;
+            color: black;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 영상 백그라운드는 5mb 미만으로 잡는 것이 좋다.
+        http://www.engr.colostate.edu/me/facil/dynamics/avis.htm 샘플 참고 사이트 
+        유튜브는 www.youtube 에서 www.뒤에 ss를 붙이면 다운로드 받을 수 있음 
+        원리: 비디오 자체를 백그라운드에 넣는 기능은 없고 웹에서 실행되고 있는걸 되는 것 처럼 해준다. -->
+    <video autoplay muted loop id="myVideo">
+        <source src="video.mp4" type="video/mp4">
+        이 브라우저는 동영상 배경을 지원하지 않습니다.
+    </video>
+    <div class="content">
+        <h1>헤드라인</h1>
+        <p>
+            공무원의 신분과 정치적 중립성은 법률이 정하는 바에 의하여 보장된다. 국회의원과 정부는 법률안을 제출할 수 있다. 
+            국회의원은 현행범인인 경우를 제외하고는 회기중 국회의 동의없이 체포 또는 구금되지 아니한다. 
+            대통령은 법률이 정하는 바에 의하여 훈장 기타의 영전을 수여한다. 모든 국민은 사생활의 비밀과 자유를 침해받지 아니한다.
+        </p>
+        <button id="myBtn" onclick="myFunc()">
+            일시중지    
+        </button>
+    </div>
+    <script>
+        var video = document.getElementById("myVideo");
+        var btn = document.getElementById("myBtn");
+        function myFunc(){
+            if(video.paused){
+                video.play();
+                btn.innerHTML="일시중지";
+            }else{
+                video.pause();
+                btn.innerHTML="재생";
+            }
+        }
+    </script>
+</body>
+</html>
