@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .wrap{
+            width: 225px;
+            height: 225px;
+            position: relative;
+            padding: 0;
+        }
+        
+        .box1-1{
+            position: absolute;
+            width: 225px;
+            height: 225px;
+            left: 0;
+            top: 0;
+        }
+        .box1-2{
+            position: absolute;
+            width: 225px;
+            height: 225px;
+            font-size: 0;
+            font-weight: bolder;
+            text-align: center;
+            color: white;
+            transition: all 1s;
+            left: 0;
+            top: 0;
+        }
+        .wrap:hover .box1-2{
+            background-color: rgba(255,0,0,0.3);
+            font-size: 50px;
+        }
+        
+        .wrap2{
+            width: 225px;
+            height: 225px;
+            position: relative;
+            padding: 0;
+        }
+        .box2-1{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 225px;
+            height: 225px;
+        }
+        .box2-2{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 225px;
+            height: 225px;
+            /* 박스가 안으로 커지게*/
+            box-sizing: border-box;
+            transition: all 1s;
+            border: 1px solid white;
+
+        }
+        .wrap2:hover .box2-2{
+            border: 20px solid red;
+        }
+        
+        .wrap3{
+            width: 225px;
+            height: 225px;
+            position: relative;
+            padding: 0;
+        }
+        .box3-1{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 225px;
+            height: 225px;
+        }
+        .box3-2{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 225px;
+            height: 225px;
+            opacity: 0;
+            transition: all 1s;
+        }
+        .wrap3:hover .box3-2{
+            opacity: 1;
+        }
+        
+        .wrap4{
+            width: 225px;
+            height: 225px;
+            position: relative;
+            padding: 0;
+            
+            overflow: hidden;
+        }
+        .box4-1{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 225px;
+            height: 225px;
+        }
+        .box4-2{
+            position: absolute;
+            width: 225px;
+            height: 112px;
+            top: 113px;
+            left: 0;
+            background-color: red;
+            border-radius: 112px 113px 0 0;
+            
+            transform-origin: bottom;
+            opacity: 0.3;
+            transition: all 1s;
+            transform: rotate(180deg);
+        }
+        .wrap4:hover .box4-2{
+            transform: rotate(360deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="box1-1">
+            <img src="aoa1.jpg">
+        </div>
+        <div class="box1-2">AOA</div>
+    </div>
+    <div class="wrap2">
+        <div class="box2-1">
+            <img src="aoa1.jpg">
+        </div>
+        <div class="box2-2"></div>
+    </div>
+    <div class="wrap3">
+        <div class="box3-1">
+            <img src="aoa1.jpg">
+        </div>
+        <div class="box3-2">
+            <img src="aoa2.jpg">
+        </div>
+    </div>
+    <div class="wrap4">
+        <div class="box4-1">
+            <img src="aoa2.jpg">
+        </div>
+        <div class="box4-2"></div>
+    </div>
+</body>
+</html>
