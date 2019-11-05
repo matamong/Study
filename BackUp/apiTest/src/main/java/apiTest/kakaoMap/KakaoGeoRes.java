@@ -6,10 +6,11 @@ import java.util.List;
 import lombok.Data;
 
 ////@Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode 을 모두 적용해줌
-//@Data 오잉 왜 안됨
+@Data
 public class KakaoGeoRes {
 	private HashMap<String, Object> meta;
 	private List<Documents> documents;
+	
 	public HashMap<String, Object> getMeta() {
 		return meta;
 	}
@@ -26,7 +27,7 @@ public class KakaoGeoRes {
 	
 }
 
-//@Data
+@Data
 class Documents {
     private HashMap<String, Object> address;
     private String address_type;
