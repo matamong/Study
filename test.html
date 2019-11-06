@@ -36,13 +36,26 @@
             background-color: blue;
             display: flex;
             justify-content: space-around;
+            overflow: hidden;
         }
         .person{
             width:300px;
-            height: 300px;
+            height: 400px;
             background-color: crimson;
-            bottom: 0;
-            
+            margin-top: 159.5px;
+        }
+        .person1{
+            animation-name: person1;
+            animation-duration: 2s;
+        }
+        
+        @keyframes person1{
+            from{
+                margin-top: 159.5px;
+            }
+            to{
+                margin-top: 100px;
+            }
         }
     </style>
 </head>
@@ -59,9 +72,9 @@
         </div>
         <div id="wrap2">
             <div class="person person1"></div>
-            <div class="person person1"></div>
-            <div class="person person1"></div>
-            <div class="person person1"></div>
+            <div class="person person2"></div>
+            <div class="person person3"></div>
+            <div class="person person4"></div>
         </div>
     </div>
 </body>
