@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #wrap{
+            width: 900px;
+            margin: 0 auto;
+        }
+        header{
+            width: 100%;
+            border: 1px solid black;
+            display: flex;
+        }
+        .logo{
+            width: 25%;
+            border: 1px solid red;
+            height: 80px;
+        }
+        .menu{
+            width: 75%;
+        }
+        .menu1{
+            width: 100%;
+            height: 40px;
+            border: 1px solid blue;
+        }
+        .menu2{
+            width: 100%;
+            height: 40px;
+            border: 1px solid blue;
+        }
+        .sec1{
+            width: 100%;
+        }
+        .sec1 article{
+            width: 100%;
+            height: 70px;
+            border: 1px solid green;
+        }
+        .sec2{
+            width: 100%;
+            display: flex;
+        }
+        aside{
+            width: 25%;
+            border: 1px solid red;
+            height: 600px;
+        }
+        .sec2 article{
+            width: 75%;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        .sec2 article .box{
+            width: 33.33333%;
+            height: 200px;
+            border: 1px solid orange;
+        }
+        footer{
+            width: 100%;
+            height: 150px;
+            border: 1px solid brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logo"></div>
+            <div class="menu">
+                <div class="menu1"></div>
+                <div class="menu2"></div>
+            </div>
+        </header>
+        <section class="sec1">
+            <article></article>
+        </section>
+        <section class="sec2">
+            <aside></aside>
+            <article>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </article>
+        </section>
+        <footer></footer>
+    </div>
+</body>
+</html>
+
+

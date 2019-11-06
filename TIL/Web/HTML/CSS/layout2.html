@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #flex{
+            display: flex;
+            flex-flow: row wrap;
+            border: 1p solid black;
+            
+        /*
+            flex-direction    
+            row : 왼쪽 -> 오른쪽
+                  위 -> 아래
+            row-reverse : row 반대
+            column : 쓰기방향이 수평이면 수직으로 배치해라
+            column-reverse : column 반대
+            
+            flex-wrap
+            wrap : 박스가 꽉차면 밑으로
+            nowrap : 기본 무조건 가로배치
+            wrap-reverse : wrap 반대
+        */
+        }
+        #flex div{
+            min-width: 150px;
+            min-height: 150px;
+        }
+        .title{
+            background-color: pink;
+            text-align: center;
+        }
+        .c1{
+            color: #ddd;
+            background-color: red;
+        }
+        .c2{
+            color: #ddd;
+            background-color: green;
+        }
+        .c3{
+            color: #ddd;
+            background-color: blue;
+        }
+        .c4{
+            color: #ddd;
+            background-color: yellow;
+        }
+        .c5{
+            color: #ddd;
+            background-color: gray;
+        }
+        .title, .c1, .c2, .c3, .c4, .c5{
+            width: 100%;
+        }
+        
+        @media(min-width:600px){
+            .c2, .c3, .c4, .c5{
+                width: 50%;
+            }
+            .title{
+                display: block;
+            }
+        }
+        @media(min-width:800px){
+            .c1{
+                width: 60%;
+            }
+            .c2{
+                width: 40%;
+            }
+            .c3, .c4{
+                 width: 33%;
+            }
+            .c5{
+                width: 34%;
+            }
+            #flex{
+                width: 800px;
+                margin: 0 auto;
+            }
+            .title{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="flex">
+        <div class="title">유동형</div>
+        <div class="c1">
+            <p>안녕하시렵니까</p>
+        </div>
+        <div class="c2"></div>
+        <div class="c3"></div>
+        <div class="c4"></div>
+        <div class="c5"></div>
+    </div>
+</body>
+</html>
