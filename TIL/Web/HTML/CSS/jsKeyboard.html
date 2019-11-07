@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            top: 50px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" onkeydown="func(event)">
+    <div id="box"></div>
+    
+    <script>
+        var x = 0;
+        var y = 50;
+        
+        document.getElementById("box").innerHTML=x+" : "+y;
+        
+        function func(e){
+            if(e.key == "ArrowUp"){
+                y = y-10;
+                document.getElementById("box").style.top = y+"px";
+            }else if(e.key == "ArrowDown"){
+                y = y+10;
+                document.getElementById("box").style.top = y+"px";
+            }else if(e.key == "ArrowLeft"){
+                x = x-10;
+                document.getElementById("box").style.left = x+"px";
+            }else if(e.key == "ArrowRight"){
+                x = x+10;
+                document.getElementById("box").style.left = x+"px";
+            }
+        }
+    </script>
+</body>
+</html>

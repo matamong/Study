@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #wrap{
+            width: 1024px;
+            border: 1px solid black;
+            /*가운데 정렬*/
+            margin: 0 auto;
+        }
+        .top{
+            width: 1022px;
+            background-color: blue;
+            display: flex;
+        }
+        .tleft{
+            width: 222px;
+            height: 100px;
+            background-color: yellowgreen;
+        }
+        .tright{
+            width: 800px;
+        }
+        .tright div{
+            width: 800px;
+            height: 50px;
+            border: 1px solid black;
+        }
+        .middle{
+            width: 100%;
+            background-color: gray;
+            display: flex;
+        }
+        .mleft{
+            width: 800px;
+            height: 600px;
+            background-color: black;
+        }
+        .mright{
+            width: 222px;
+        }
+        .mright div{
+            width: 222px;
+            background-color: aqua;
+            height: 200px;
+            border: 1px solid black;
+        }
+        .bottom{
+            width: 1022px;
+            display: flex;
+        }
+        .bottom div{
+            height: 200px;
+            width: 33.3333%;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+       
+        <div class="top">
+            <div class="tleft">로고</div>
+            <div class="tright">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        
+        <div class="middle">
+            <div class="mleft"></div>
+            <div class="mright">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        
+        <div class="bottom">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        
+    </div>
+</body>
+</html>
