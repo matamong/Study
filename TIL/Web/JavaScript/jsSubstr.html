@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input id="input" type="text"> <br>
+    <input id="number" type="text"> <br>    
+    <input type="button" onclick="input()" value="확인">
+    <div id="result"></div>
+    
+    <script>
+        function input(){
+            var text = document.getElementById("input").value;
+            var txtnum = document.getElementById("number").value;
+            var num = Number(txtnum);
+            var result;
+            
+            var result = text.substr(0, num);
+                console.log(txtnum);
+                console.log(num);
+            document.getElementById("result").innerHTML="결과 :  "+result+"....";
+        }
+    </script>
+</body>
+</html>

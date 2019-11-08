@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        //text Node
+//        window.onload = function(){
+//            var header = document.createElement("h1");
+//            var textNode = document.createTextNode("Hello DOM");
+//            
+//            header.appendChild(textNode);
+//            document.body.appendChild(header);
+//        };
+        //No text Node
+        window.onload = function(){
+            var img = document.createElement("img");
+            
+            img.setAttribute('src','text.png');
+            img.setAttribute('width',600);
+            img.setAttribute('height', 500);
+            
+            document.body.appendChild(img);
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>

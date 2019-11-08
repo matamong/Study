@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #wrap{
+            width: 1024px;
+            height: 768px;
+            border: 1px solid black;
+            margin: 0 auto;
+            position: relative;
+        }
+        #total{
+            float: left;
+            font-size: 24px;
+        }
+        #span:nth-child(2){
+            float: right;
+        }
+        #wrap div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <span id="total">0</span>
+        <span>
+            <input type="text" id="cnt">
+            <input type="button" value="시 작" onclick="func()">
+        </span>
+        
+        <script>
+            var total = 0;
+            var box = null;
+            
+            function func(){
+                var el = document.getElementById("wrap").getElementsByTagName("div");
+                if(el.length > 0){
+                    for(var i=0; i<total; i++){
+                        el[0].remove();
+                    }
+                }
+                
+                var cnt = document.getElementById("cnt").value;
+                
+                for(var i=0; i<cnt; i++){
+                    var x = Math.floor(Math.random()*924);
+                    var y = Math.floor(Math.random()*668);
+                    var color = "#" + Math.floor(Math.random()*0xffffff).toString(16);
+                    
+                    box = document.createElement("div");
+                    var txt = document.createTextNode(i+"");
+                    box.appendChild(txt);
+                    
+                    box.style.left = x+"px";
+                    box.style.top = y+"px";
+                    box.style.backgroundColor = color;
+                    
+                    document.getElementById("wrap").appendChild(box);
+                }
+                total = document.getElementById("wrap").getElementsByTagName("div").length;
+                document.getElementById("total").innerHTML = total;
+            }
+        </script>
+    </div>
+</body>
+</html>

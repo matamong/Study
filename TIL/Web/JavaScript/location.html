@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <a href="http://naver.com">네이버</a>
+    <input type="button" value="네이트" onclick="func()">
+    <input type="button" value="갱신" onclick="func2()">
+    <input type="button" value="페이지 이동" onclick="func3()">
+    <input type="button" value="속성" onclick="func4()">
+    
+    <p id="result"></p>
+    
+    <script>
+        function func(){
+            location.href="http://nate.com";
+        }
+        function func2(){
+            location.reload();
+        }
+        function func3(){
+            location.replace("http://daum.net"); //이전 페이지로 안 감
+        }
+        function func4(){
+            document.getElementById("result").innerHTML = location.host+"<br>"
+                                                         +location.hostname+"<br>"
+                                                         +location.port+"<br>"
+                                                         +location.pathname+"<br>";
+        }       
+    </script>
+</body>
+</html>
