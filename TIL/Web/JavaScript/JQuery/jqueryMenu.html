@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .menubar{
+            width: 200px;
+            height: 20px;
+            display: flex;
+            border: 1px solid black;
+            justify-content: space-around;
+        }
+        .menu1 div>div{
+            display: none;
+        }
+        .menu2 div>div{
+            display: none;
+        }
+        .menu3 div>div{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="menubar">
+        <div class="menu1">
+            <div>메뉴1</div>
+            <div>
+                <div>서브 1</div>
+                <div>서브 2</div>
+                <div>서브 3</div>
+            </div>
+        </div>
+        <div class="menu2">
+            <div>메뉴2</div>
+            <div>
+                <div>서브 1</div>
+                <div>서브 2</div>
+                <div>서브 3</div>
+            </div>
+        </div>
+        <div class="menu3">
+            <div>메뉴3</div>
+            <div>
+                <div>서브 1</div>
+                <div>서브 2</div>
+                <div>서브 3</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script>
+        $(function(){
+            $(".menu1").mouseenter(function(){
+                $(".menu1 div>div").stop().slideDown(300);
+            });
+            
+            $(".menu1").mouseleave(function(){
+                $(".menu1 div>div").stop().slideUp(300);
+            });
+            
+            $(".menu2").mouseenter(function(){
+                $(".menu2 div>div").stop().slideDown(300);
+            });
+            
+            $(".menu2").mouseleave(function(){
+                $(".menu2 div>div").stop().slideUp(300);
+            });
+            
+            
+            $(".menu3").mouseenter(function(){
+                $(".menu3 div>div").stop().slideDown(300);
+            });
+            
+            $(".menu3").mouseleave(function(){
+                $(".menu3 div>div").stop().slideUp(300);
+            });
+        });
+    </script>
+</body>
+</html>

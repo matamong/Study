@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>If you click on the "Hide" button. I will disappear</p>
+    
+    <button id="hide">Hide</button>
+    <button id="show">Show</button>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#hide").click(function(){
+                $("p").hide();
+                //$("p").hide("slow");
+                //$("p").hide("fast");
+                //$("p").hide(1000);
+                //$("p").toggle(); (버튼 하나로 hide&show)
+            });
+            $("#show").click(function(){
+                $("p").show();
+            });
+        });
+    </script>
+</body>
+</html>

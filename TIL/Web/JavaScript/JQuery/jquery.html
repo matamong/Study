@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+</head>
+<body>
+   <h2>버튼을 누르면 글씨가 사라집니다!</h2>
+   
+   <p>p태그 사이의 글들만 사라집니다.</p>
+   <p>버튼을 눌러 보세요!</p>
+   
+   <button>여기를 눌러주세요!</button>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+//        $(document).ready(function(){
+//            $("button").click(function(){
+//                $("p").hide();
+//            });
+//            });
+        
+        //same as
+        $(function(){
+            $("button").click(function(){
+                $("p").hide();
+            });
+        });
+        
+        
+        $(function(){
+            $("p").click(function(){
+                $(this).hide();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box1{
+            width: 50px;
+            height: 50px;
+            background-color: cadetblue;
+            position: absolute;
+        }
+        #box2{
+            width: 50px;
+            height: 50px;
+            background-color: darksalmon;
+            position: absolute;
+            top: 40px;
+        }
+        #box3{
+            width: 50px;
+            height: 50px;
+            background-color: crimson;
+            position: absolute;
+            top: 60px;
+        }
+        button{
+            position: absolute;
+            left:700px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <div id="box3"></div>
+    <button>달려랏!</button>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        
+        $(function(){
+            $("button").click(function(){
+                var ran = Math.floor(Math.random()*3)+1;
+                $("#box"+ran).animate({
+                    left:'+=20px'
+                });
+            });
+        });
+            
+    </script>
+</body>
+</html>

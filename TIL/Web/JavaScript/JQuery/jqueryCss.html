@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h2>각 p 태그를 클릭하면 색상값을 가져옵니다.</h2>
+    <p style="background-color: #ff0000">This is a paragraph.</p>
+    <p style="background-color: #00ff00">This is a paragraph.</p>
+    <p style="background-color: #0000ff">This is a paragraph.</p>
+    
+    <button id="btn1">색만 노란색으로</button>
+    <button id="btn2">색과 크기를 동시에</button>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(function(){
+            $("p").click(function(){
+                alert($(this).css("background-color"));
+            });
+            
+            $("#btn1").click(function(){
+                $("p").css("background-color","yellow");
+            });
+            
+            $("#btn2").click(function(){
+                $("p").css({"background-color":"pink"," font-size":"200%"});
+            });
+        });
+    </script>
+</body>
+</html>

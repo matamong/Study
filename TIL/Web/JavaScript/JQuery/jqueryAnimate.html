@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>Start Animation</button>
+    <div style="background:#98bf21; height:100px; width: 100px; position:absolute"></div>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(function(){
+            $("button").click(function(){
+                $("div").animate({left: '250px'});
+            });
+            
+            
+            $("button").click(function(){
+                $("div").animate({
+                    left:'250px',
+                    opacity: '0.5',
+                    height: '150px',
+                    width: '150px'
+                });
+            });
+            
+            $("button").click(function(){
+                $("div").animate({
+                    left:'250px',
+                    height: '+=150px',
+                    width: '+=150px'
+                });
+            });
+        });
+        
+    
+    </script>
+</body>
+</html>
