@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import apiTest.json.util.test.JSONMaker;
 
 @WebServlet("/PushToJsp")
-public class PushToJSP extends HttpServlet{
+public class PushToJsp extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
