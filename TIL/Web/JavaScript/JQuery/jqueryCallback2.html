@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            border: 5px solid black;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function(){
+           $("div").hide(500, function(){
+                $("div").show(500,function(){
+                    $("div").hide(500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

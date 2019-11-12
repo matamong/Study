@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+          
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+    <input type="button" value="시작" onclick="startClock()">
+    <input type="button" value="중지" onclick="stopClock()">
+    
+    <script>
+        var timeId = null;
+        
+        function printTime(){
+            var today = new Date();    
+            var hh = today.getHours();
+            var mi = today.getMinutes();
+            var ss = today.getSeconds();
+            document.getElementById("result").innerHTML = hh+" : " + mi + " : " + ss;
+        }
+        
+       function startClock(){
+           printTime();
+           timeId = setInterval(printTime,1000);
+       }
+        
+        function stopClock(){
+            if(timeId != null){
+                clearInterval(timeId);
+            }
+        }
+    </script>
+    
+     
+</body>
+</html>

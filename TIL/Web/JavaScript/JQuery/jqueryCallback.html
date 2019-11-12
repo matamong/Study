@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>Hide</button>
+    <p>This is a paragraph with little content.</p>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        /* 콜백 사용
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("p").hide("slow", function(){
+                   alert("The paragraph is now hidden");
+                });
+            });
+        });
+        */
+        
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("p").hide(1000);
+                alert("The paragraph is now hidden");
+            });
+        });
+        
+    </script>
+</body>
+</html>

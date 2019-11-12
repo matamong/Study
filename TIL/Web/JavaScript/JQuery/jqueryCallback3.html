@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            border: 4px solid black;
+        }
+        #big{
+            position: absolute;
+            left: 700px;
+        }
+        #small{
+            position: absolute;
+            left: 750px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <button id="big">커짐</button>
+    <button id="small">작아짐</button>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+       
+        
+        $(document).ready(function(){
+            $("#big").click(function(){
+                
+                var width = $("#box").css('width');
+                var height = $("#box").css('height');
+                
+                $("#box").css("background-color","red").animate({
+                    width:parseInt(width)+100 +'px',
+                    height:parseInt(height)+100 + 'px'
+                },'fast');
+            });
+            
+            $("#small").click(function(){
+                
+                var width = $("#box").css('width');
+                var height = $("#box").css('height');
+                
+                $("#box").css("background-color","blue").animate({
+                    width:parseInt(width)-100 +'px',
+                    height:parseInt(height)-100 + 'px'
+                },'fast');
+            });
+        });
+    </script>
+</body>
+</html>

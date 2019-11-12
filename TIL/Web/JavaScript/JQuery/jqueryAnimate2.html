@@ -39,13 +39,46 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         
+//        $(function(){
+//            $("button").click(function(){
+//                var ran = Math.floor(Math.random()*3)+1;
+//                $("#box"+ran).animate({
+//                    left:'+=20px'
+//                });
+//            });
+//        });
+        
         $(function(){
+            var pos1 = 40;
+            var pos2 = 40;
+            var pos3 = 40;
+            
+            function getRandom(begin, end){
+                var res = Math.floor(Math.random()*end)+begin;
+                return res;
+            }
+            
+            
             $("button").click(function(){
-                var ran = Math.floor(Math.random()*3)+1;
-                $("#box"+ran).animate({
-                    left:'+=20px'
-                });
+                var ran = getRandom(1,3);
+                if(ran==1){
+                    pos1 = pos1+50;
+                    $("#box1").animate({
+                        left: pos1+'px'
+                    },200);
+                }else if(ran==2){
+                    pos2 = pos2+50;
+                    $("#box2").animate({
+                        left: pos2+'px'
+                    },200);
+                }else if(ran==3){
+                    pos1 = pos3+50;
+                    $("#box3").animate({
+                        left: pos3+'px'
+                    },200);
+                }
             });
+ 
         });
             
     </script>

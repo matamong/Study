@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #car{
+            position: absolute;
+            top: 80px;
+            left: 120px;
+        }
+        #mi{
+            position: absolute;
+            top: 150px;
+            left: 120px;
+            display: none;
+        }
+        #move_up{
+            position: absolute;
+            top: 430px;
+            left: 110px;
+        }
+        #move_down{
+            position: absolute;
+            top: 620px;
+            left: 110px;
+        }
+        #move_left{
+            position: absolute;
+            top: 525px;
+            left: 50px;
+        }
+        #move_right{
+            position: absolute;
+            top: 525px;
+            left: 170px;
+        }
+        #fire{
+            position: absolute;
+            top: 540px;
+            left: 280px;
+        }
+    </style>
+</head>
+<body>
+    <div id="car">
+        <img src="taxi.jpg">
+    </div>
+    <div id="mi">
+        <img src="mi.jpg">
+    </div>
+    <div id="move_up">
+        <img src="up.png">
+    </div>
+    <div id="move_down">
+        <img src="down.png">
+    </div>
+    <div id="move_left">
+        <img src="left.png">
+    </div>
+    <div id="move_right">
+        <img src="right.png">
+    </div>
+    <button id="fire">Fire</button>
+    
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<script>
+    $(function(){
+        var posx = 120;
+        var posy = 80;
+        var mipos = 120;
+        
+        $("#move_up").click(function(){
+            posy=posy-10;
+            $("#car").animate({
+                top:posy+"px"
+            },200);
+        });
+        $("#move_down").click(function(){
+            posy=posy+10;
+            $("#car").animate({
+                top:posy+"px"
+            },200);
+        });
+        $("#move_left").click(function(){
+            posx=posx-10;
+            $("#car").animate({
+                top:posx+"px"
+            },200);
+        });
+        $("#move_up").click(function(){
+            posx=righx+10;
+            $("#car").animate({
+                top:posx+"px"
+            },200);
+        });
+        
+    $("#fire").click(function(){
+       mipos = posx+1000;
+       $("#mi").css("top",posy+70);
+       $("#mi").css("left",posx);
+       $("#mi").css("display","block");
+       $("#mi").animate({
+           left:mipos+"px"
+       },2000);
+        mipos=posx-1000;
+    });
+        
+    });
+</script>       
+    
+</body>
+</html>
+
+
+
+
+
+
+
+

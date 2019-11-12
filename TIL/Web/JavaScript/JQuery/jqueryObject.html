@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="root">
+       <li>
+           1번
+       </li>
+       <li>
+           2번
+       </li>
+        <li class="child3">
+            3번
+                <ul>
+                    <li class="child31">
+                        3-1번
+                    </li>
+                    <li class="child32">
+                        3-2번
+                    </li>
+                </ul>
+        </li>
+    </ul>
+    <button id="btn1">
+    $(".root").children().dtach();
+    </button> <br>
+    <button id="btn2">
+    $(".child3").prev().prev().detach();
+    </button>
+    <br>
+    <button id="btn3">
+    $(".child3").prev().prev().next().detach();
+    </button>
+    <br>
+    <button id="btn4">
+        $(".root").children().children().detach();
+    </button>
+    <br>
+    <button id="btn5">
+        $(".child31").parent().parent().prev().detach();
+    </button>
+    <br>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(function(){
+            $("#btn1").click(function(){
+               $(".root") .children().detach();
+            });
+            
+            $("#btn2").click(function(){
+               $(".child3").prev().prev().detach();
+            });
+            
+            $("#btn3").click(function(){
+               $(".child3").prev().prev().next().detach();
+            });
+                
+             $("#btn4").click(function(){
+               $(".root").children().children().detach();
+            });  
+            
+            $("#btn5").click(function(){
+               $(".child31").parent().parent().prev().detach();
+            });    
+        });
+    </script>
+</body>
+</html>

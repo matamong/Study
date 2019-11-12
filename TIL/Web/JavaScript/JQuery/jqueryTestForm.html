@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .important{
+            font-weight: bold;
+            font-size: large;
+        }
+        .blue{
+            color: blue;
+        }
+        .red{
+            color: red;
+        }
+        .answerWrap{
+            border: 1px solid black;
+            width: 900px;
+            height: 200px;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        .answer{
+            width: 257px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+   <div class="q1">
+       <div> 1. 다음 중 외국인이 아닌 사람은?</div>   
+        <p class="one">① 사나</p>
+        <p class="ans">② 모모</p>
+        <p class="three">③ 쯔위</p>
+        <p class="four">④ 설현</p>
+   </div>
+   <br><br>
+   <div class="q2">
+       <div> 2. 다음 중 외국인이 아닌 사람은?</div>   
+        <p class="one">① 민니</p>
+        <p class="two">② 우기</p>
+        <p class="ans">③ 수진</p>
+        <p class="four">④ 미연</p>
+   </div>
+   <br><br>
+   <div class="q3">
+        <div> 3. 다음 중 3번을 고르시오.</div>   
+        <p class="one">① 1번</p>
+        <p class="two">② 2번</p>
+        <p class="ans">③ 3번</p>
+        <p class="four">④ 4번</p>
+   </div>
+   <br><br>
+   <div class="answerWrap">
+       <div class="answer">
+           <div id="q1">
+               <div><b>1번 문제</b></div>   
+                <p class="one">① </p>
+                <p class="two">② </p>
+                <p class="ans">③ </p>
+                <p class="four">④ </p>
+           </div>
+       </div>
+       <div class="answer">
+           <div id="q2">
+               <div><b>2번 문제</b></div>   
+                <p class="one">① </p>
+                <p class="two">② </p>
+                <p class="ans">③ </p>
+                <p class="four">④ </p>
+           </div>
+       </div>
+       <div class="answer">
+           <div id="q3">
+               <div><b>3번 문제</b></div>   
+                <p class="one">① </p>
+                <p class="two">② </p>
+                <p class="ans">③ </p>
+                <p class="four">④ </p>
+           </div>
+       </div>
+   </div>
+    <button>정답</button>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("p").mouseenter(function(){
+                $(this).css("cursor","pointer");
+            });
+            
+            $("p").click(function(){
+                var cl = $(this).filter();
+                
+//                alert(cl.class(););
+//                var id = $(cl).parent();
+//                $(id cl).toggleClass("blue");
+            });
+            
+            $("button").click(function(){
+                $(".ans").addClass("important red")
+            });
+        });
+    </script>
+</body>
+</html>

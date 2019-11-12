@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .showbox{
+            position: relative;
+            width: 200px;
+            height: 100px;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+        .box{
+            position: absolute;
+            width: 600px;
+            height: 100px;
+            top: 0;
+            left: 0;
+            display: flex;
+        }
+        img{
+            width: 198px;
+            height: 98px;
+        }
+    </style>
+</head>
+<body>
+    <div class="showbox">
+        <div class="box">
+            <img src="minicat.jpg">
+            <img src="taxi.jpg">
+            <img src="cat.jpg">
+        </div>
+    </div>
+    <button id="left">Left!</button>
+    <button id="right">Right!</button>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(function(){
+            $("#left").click(function(){
+//              $(".box").css("left","-198px");
+                $(".box").animate({
+                    left: "-198px"
+                },500,function(){
+                    var x = $(".box img").eq(0).detach();
+                    $(".box").append(x);
+                    $(".box").css("left","0");    
+                });
+            });
+            
+            
+            
+            $("#right").click(function(){
+                
+                //오른쪽으로 땡기면 그림이 없으니 떼서붙이는 작업을 먼저한다.
+                 var x = $(".box img").eq(2).detach();
+              
+                //box 전체를 둘러싼 길이를 다시 재조정해줘야한다.
+                 $(".box").css("left","-198px"); 
+                 
+                $(".box").prepend(x);
+         
+                 $(".box").animate({
+                     left:"0"
+                 },500);
+            });
+        });
+    </script>
+</body>
+</html>

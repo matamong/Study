@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+       
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function(){
+            for(var i=0; i<10; i++){
+                var x = Math.floor(Math.random()*800);
+                var y = Math.floor(Math.random()*500);
+                var color = "#"+Math.floor(Math.random()*0xffffff).toString(16);
+                
+                var box = $("<div></div>");
+                box.css("left",x);
+                box.css("top",y);
+                box.css("background-color",color);
+                
+                $("body").append(box);
+            }
+            
+            $("div").click(function(){
+                $(this).remove();
+            });
+        });
+    </script>
+
+</body>
+</html>
