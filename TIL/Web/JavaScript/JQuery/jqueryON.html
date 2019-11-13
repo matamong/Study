@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="kok">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        p{
+            width: 500px;
+            height: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p></p>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $("p").on("click" , function(){
+            alert("click 이벤트가 발생했습니다.");
+            $("p").css("background-color","pink");
+        });
+    </script>
+</body>
+</html>

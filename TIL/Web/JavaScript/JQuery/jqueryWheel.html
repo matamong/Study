@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(function(){
+            $("html, body").on('mousewheel DOMMouseScroll', function(e){
+                              // 크롬, 익스  // 파이어폭스
+                var E = e.originalEvent;
+                var delta = 0;
+                
+                if(E.detail){
+                    delta = E.detail * -40; //파이어 폭스는 -3을 출력
+                    $('body').text(delta);
+                }else{
+                    delta = E.wheelDelta;   // 크롬, 익스는 -120 출력
+                    $('body').text(delta);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

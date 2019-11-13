@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 100%;
+            height: 100vh;
+            color: #fff;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" style="background-color: red">1</div>
+    <div class="box" style="background-color: orange">2</div>
+    <div class="box" style="background-color: yellow">3</div>
+    <div class="box" style="background-color: green">4</div>
+    <div class="box" style="background-color: blue">5</div>
+    <div class="box" style="background-color: darkblue">6</div>
+    <div class="box" style="background-color: violet">7</div>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function(){
+            var elm = ".box";
+            
+            //index는 내 위치를 말해줌
+            //each함수로 각각의 인덱스에 모두 적용할 것이다.
+            $(elm).each(function(index){
+                
+                $(this).on("mousewheel DOMMouseScroll", function(e){
+                    //브라우저자체의 이벤트때문에 휠 이동이 버벅이지 않게 하기 위해서 막아버림.
+                    e.preventDefault();
+                    
+                    var delta=0;
+                    var E=e.originalEvent;
+                    
+                    if(E.detail){
+                        delta = E.detail * -40;
+                    }else{
+                        delta = E.wheelDelta;
+                        if(window.opera) delta = -delta;  //오페라는 휠 내리면 양수 됨..->음수로 바꿔줌
+                    }
+                    
+                    var moveTop = 0;
+                    var elmSelector = $(elm).eq(index);
+                    
+                    if(delta < 0){
+                        if($(elmSelector).next() != undefined){
+                            moveTop = $(elmSelector).next().offset().top;
+                            //
+                        }
+                    }
+                    
+                    $("html, body").stop().animate({
+                        scrollTop: moveTop
+                    },500);
+                });
+            });
+        })
+    </script>
+</body>
+</html>

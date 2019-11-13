@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #div1{
+            height: 300px;
+            width: 500px;
+            padding: 10px;
+            margin: 3px;
+            border: 1px solid black;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <br>
+    
+    <button id="btn1">Display dimensions</button>
+    <button id="btn2">resize dimensions</button>
+    <p>width() - returns the width of an elemnet.</p>
+    <p>height() - returns the height of an element.</p>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#btn1").click(function(){
+                var txt = "";
+                txt += "Width of div: " + $("#div1").width() + "</br>";
+                txt += "Height of div: " + $("#div1").height() + "</br>";
+                txt += "Inner width of div: " + $("#div1").innerWidth() + "</br>";
+                txt += "Inner height div: " + $("#div1").innerHeight() + "</br>";
+                txt += "Outer width of div: " + $("#div1").outerWidth() + "</br>";
+                txt += "Outer height of div: " + $("#div1").outerHeight() + "</br>";
+                txt += "Outer width of div (margin included) : " + $("#div1").outerWidth(true) + "</br>";
+                txt += "Outer height of div (margin included) : " + $("#div1").outerHeight(true) + "</br>";
+                txt += "Document width/height : " + $(document).width();
+                txt += "x" + $(document).height() + "</br>";
+                txt += "Window width/height : " + $(window).width();
+                txt += "x" + $(window).height();
+                $("#div1").html(txt);
+                
+            });
+            
+            $("#btn2").click(function(){
+                $("#div1").width(700).height(500);
+            });
+            
+        });
+    </script>
+
+</body>
+</html>

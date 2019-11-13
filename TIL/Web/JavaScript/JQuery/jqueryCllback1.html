@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            border: 5px solid black;
+            position: absolute;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <!--JQuery는 백그라운드 컬러 변경 안되니까 밑에꺼 추가해야함 -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("div").css("background-color","red").animate({
+                left: 500+'px'
+            },500,function(){
+                $("div").css("background-color","blue").animate({
+                    top: 500+'px'
+                },500,function(){
+                    $("div").css("background-color","yellow").animate({
+                        left: 0+'px'
+                    },500,function(){
+                        $("div").css("background-color","green").animate({
+                            top: 0+'px'
+                        },500)
+                    })
+                });
+            });
+        });
+        
+        
+    </script>
+</body>
+</html>
