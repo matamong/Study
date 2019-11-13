@@ -19,8 +19,8 @@ public class PushToJsp extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
-		resp.setContentType("text/html; charset=utf-8");
+		resp.setContentType("application/json;");
+        resp.setCharacterEncoding("utf-8");
 		
 		JSONObject jsonObj = JSONMaker.makeJSON();
 		
