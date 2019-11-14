@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Dancing+Script|Pacifico|Satisfy&display=swap" rel="stylesheet"> 
+    <title>AnimalBridge</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+            
+            /*백그라운드 사진 수정 마정연*/
+            background-image: url(cat-4541889_1920.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #wrap1{
+            width:100%;
+            height: 100%;
+            position: absolute;
+            top:0;
+            left:0;
+            overflow: hidden;
+        }   
+        #toplogo{
+        	width:400px;
+        	height:300px;
+        	margin: 0px auto;
+            /*font size 수정 (확대) 마정연*/
+        	font-size: 70px;
+        	line-height:300px;
+        	text-align: center;
+        	position: relative;
+        	z-index:2;
+        	
+        	
+        	
+        	/* background-repeat: no-repeat;
+        	background-image: url("logoImg02.png");
+        	background-position: center; 
+        	 */
+        	
+    
+            font-family: 'Satisfy', cursive;
+            
+            
+            font-weight: bold;
+            /* text-shadow: 3px 3px 5px rgba(0,0,0,.8);  */
+            
+            /*font-color 추가 마정연*/
+            /*font-color 변경(화이트) 마정연*/
+            color: #ffffff;
+            /*text-shadow 추가 마정연*/
+            text-shadow: 2px 2px 0.1px dimgray;
+        }
+        
+        /* #toplogo img{
+        	position: absolute;
+        	width:100px;
+        	height: 60px;
+        	top:60px;
+        	left:330px;
+        
+        }
+         */
+        
+        
+        
+        
+        
+        
+        #sideBar {
+            background-color: rgba(0, 0, 0, 0.3);
+            width:250px;
+            height: 100%;
+            position: absolute;
+            font-family: 'Jua', sans-serif;
+            font-size: 30px;
+            top: 0;
+            left: -250px;
+        }
+        #sideBar ul {
+            list-style: none;
+            color: white;
+        }
+        #sideBar ul li {
+            margin: 10px;
+            padding: 10px;
+        }
+        #sideBar ul li:hover {
+            color: wheat;
+            background-color: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+        #container{
+            text-align: center;
+            margin-top: 50px;
+            font-size: 30px;
+            font-family: 'Jua', sans-serif; 
+            line-height: 10px;
+        }
+
+        #wrap2{
+            width:100%;
+            height: 50%;
+            position: absolute;
+            bottom:0;
+            display: flex;
+            justify-content: space-around;
+            overflow: visible;
+        }
+    
+        .person{
+            width:400px;
+            height: 750px;
+            /* margin-top: 159.5px; */
+            display: block;
+        }
+        .parson_menuO {
+        	height:150px;
+        	line-height: 100px;
+            text-align: center;
+            color: white;
+            font-size: 50px;
+            
+            /*수정 이정민*/
+            opacity: 1;
+            /*font 자간 수정 마정연*/
+            letter-spacing: 4px;
+            /*text-shadow 수정 마정연*/
+            text-shadow: 3px 3px 0.1px dimgray;
+        }
+        .person_menuI {
+        	height:200px;
+        	line-height: 200px;
+        	background-color: rgb(230, 60, 63);
+        	text-align: center;
+            color: white;
+            font-size: 70px;
+
+            /* 메뉴박스 하단 라디우스-김영우 */
+            border-radius: 0 0  50px 50px;
+        }
+        .person_img img{
+        	width : 400px;
+        	height: 400px;
+        }
+       
+        #person1{
+            position: absolute;
+            bottom: -350px;
+            left: 6%;
+        }
+        #person2{
+            position: absolute;
+            bottom: -350px;
+            left: 29%;
+        }
+        #person3{
+            position: absolute;
+            bottom: -350px;
+            left: 52%;
+        }
+        #person4{
+            position: absolute;
+            bottom: -350px;
+            left: 75%;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div id="wrap1">
+    <div id="sideBar">
+        <i class="fas fa-paw" style="font-size: 60px; color: white; position: absolute;top: 0px; left: 250px; background-color: rgba(0, 0, 0, 0.3); width: 75px; height: 75px; padding: 10px; cursor: pointer"></i>
+        <ul>
+            <li>로그인</li>
+            <li>마이페이지</li>
+            <li>사이트 소개</li>
+        </ul>
+    </div>
+    <div id="toplogo">Animal Bridge
+        <!-- <img src="logoImg00.png"> -->
+    </div>
+    <div id="container">
+        <div id="wrap2">
+            <div class="person" id="person1">
+                    <div class="parson_menuO">저 행복해요</div>
+                    <div class="person_img"><img src="showIcon.png"></div>
+                    <div class="person_menuI">저 행복해요</div>
+            </div>
+            <div class="person" id="person2">
+                     <div class="parson_menuO">입양예약</div>
+                     <div class="person_img"><img src="reservationIcon.png"></div>
+                     <div class="person_menuI">입양예약</div>
+            </div>
+            <div class="person" id="person3">
+                    <div class="parson_menuO">자원봉사</div>
+                    <div class="person_img"><img src="volunteerIcon.png"></div>
+                    <div class="person_menuI">자원봉사</div>
+            </div>
+            <div class="person" id="person4">
+                    <div class="parson_menuO">유기동물신고</div>
+                    <div class="person_img"><img src="mapIcon.png"></div>
+                    <div class="person_menuI">유기동물신고</div>
+            </div>
+        </div>
+    </div>
+  </div>  
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js">
+    </script>
+    <script>
+        
+            $(function() {
+                
+                $("#person1").mouseenter(function() {
+                
+                    $(this).stop().animate({
+                        
+                        bottom: "0"
+                        
+                    }, 500);
+                    
+                    // 메뉴바 상위 폰트 페이드아웃 애니메이션 수정 이정민
+                    $("#person1 .parson_menuO").stop().animate({
+
+                        opacity: "0"
+
+                    }, 500);
+
+                });
+                
+                $("#person1").mouseleave(function() {
+                
+                    $(this).stop().animate({
+                        
+                        bottom: "-350px"
+                        
+                    }, 500);
+                    
+                    // 메뉴바 상위 폰트 페이드아웃 애니메이션 수정 이정민
+                    $("#person1 .parson_menuO").stop().animate({
+
+                        opacity: "1"
+
+                    }, 500);
+
+                });
+                
+                $("#person2").mouseenter(function() {
+                
+                    $(this).stop().animate({
+                        
+                        bottom: "0"
+                        
+                    }, 500);
+                    
+                    // 메뉴바 상위 폰트 페이드아웃 애니메이션 수정 이정민
+                    $("#person2 .parson_menuO").stop().animate({
+
+                        opacity: "0"
+
+                    }, 500);
+
+                });
+                
+                $("#person2").mouseleave(function() {
+                
+                    $(this).stop().animate({
+                        
+                        bottom: "-350px"
+                        
+                    }, 500);
+                    
+                    // 메뉴바 상위 폰트 페이드아웃 애니메이션 수정 이정민
+                    $("#person2 .parson_menuO").stop().animate({
+
+                        opacity: "1"
+
+                    }, 500);
+
+                });
+                
+                $("#person3").mouseenter(function() {
+                
+                    $(this).stop().animate({
+                        
+                        bottom: "0"
+                        
+                    }, 500);
+                
+                    // 메뉴바 상위 폰트 페이드아웃 애니메이션 수정 이정민
+                    $("#person3 .parson_menuO").stop().animate({
+
+                        opacity: "0"
+
+                    }, 500);
+
+                });
+                
+                $("#person3").mouseleave(function() {
+                
+                    $(this).stop().animate({
+                        
+                        bottom: "-350px"
+                        
+                    }, 500);
+                
+                    // 메뉴바 상위 폰트 페이드아웃 애니메이션 수정 이정민
+                    $("#person3 .parson_menuO").stop().animate({
+
+                        opacity: "1"
+
+                    }, 500);
+
+                });
+                
+                $("#person4").mouseenter(function() {
+                
+                    $(this).stop().animate({
+                        
+                        bottom: "0"
+                        
+                    }, 500);
+                
+                    // 메뉴바 상위 폰트 페이드아웃 애니메이션 수정 이정민
+                    $("#person4 .parson_menuO").stop().animate({
+
+                        opacity: "0"
+
+                    }, 500);
+
+                });
+                
+                $("#person4").mouseleave(function() {
+                
+                    $(this).stop().animate({
+                        
+                        bottom: "-350px"
+                        
+                    }, 500);
+                
+                    // 메뉴바 상위 폰트 페이드아웃 애니메이션 수정 이정민
+                    $("#person4 .parson_menuO").stop().animate({
+
+                        opacity: "1"
+
+                    }, 500);
+
+                });
+                
+                $("#sideBar").mouseenter(function() {
+               
+                    $(this).stop().animate({
+
+                        left: "0px"
+
+                    }, 500);
+                
+                });
+                
+                $("#sideBar").mouseleave(function() {
+               
+                    $(this).stop().animate({
+
+                        // 아예 다 들어가버리는거 수정(-350px -> -250px) 마정연
+                        left: "-250px"
+
+                    }, 500);
+                
+                });
+                
+            });
+        
+    </script>
+</body>
+</html>
