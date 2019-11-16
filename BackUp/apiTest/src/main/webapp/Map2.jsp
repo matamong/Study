@@ -35,27 +35,32 @@
 
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+        var json = ${ requestScope.json };
+        console.log("받은 json : " + json);
+        console.log("받은 title : " + json[0].title);
+        console.log("받은 x : " + json[0].x);
 
-        // 마커를 표시할 위치와 title 객체 배열입니다 
-        var positions = [
-            {
-                "title": '카카오',
-                latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-            },
-            {
-                "title": '생태연못',
-                latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-            },
-            {
-                "title": '텃밭',
-                latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-            },
-            {
-                "title": '근린공원',
-                latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+        var jsonToPosition = [];
+
+        function positionMaker(arr) {
+            var res = [];
+
+            for (var i = 0; i < arr.length; i++) {
+                var obj = {};
+                obj.title = arr[i].title;
+                obj.latlng = new kakao.maps.LatLng(Number(arr[i].y), Number(arr[i].x))
+                res.push(obj);
             }
-        ];
+            return res;
+            console.log(res);
+        }
+
+
+        var positions = positionMaker(json);
+        console.log("positions title : " + positions[0].title);
         console.log("position : " + positions[0].latlng);
+        
+
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = 'mark1.png';
 
@@ -76,20 +81,20 @@
         }
 
         var imageSrc2 = 'mark2.png';
-            var imageSize2 = new kakao.maps.Size(64, 69),
-                markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2); // 마커 이미지를 생성합니다    
-          
-            var marker2 = new kakao.maps.Marker({
-                map: map, // 마커를 표시할 지도
-                image: markerImage2 // 마커 이미지 
-            });
+        var imageSize2 = new kakao.maps.Size(64, 69),
+            markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize2); // 마커 이미지를 생성합니다    
+
+        var marker2 = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            image: markerImage2 // 마커 이미지 
+        });
         //지도에 클릭 이벤트를 등록합니다
         //지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
         kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
 
             // 클릭한 위도, 경도 정보를 가져옵니다 
             var latlng = mouseEvent.latLng;
-            
+
             // 마커 위치를 클릭한 위치로 옮깁니다
             marker2.setPosition(latlng);
 
@@ -97,7 +102,7 @@
             message += '경도는 ' + latlng.getLng() + ' 입니다';
 
             var x = document.getElementById("x");
-            x.value =  latlng.getLng();
+            x.value = latlng.getLng();
             var y = document.getElementById("y");
             y.value = latlng.getLat();
             var resultDiv = document.getElementById('result');

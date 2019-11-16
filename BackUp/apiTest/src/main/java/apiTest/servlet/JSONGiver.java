@@ -2,6 +2,7 @@ package apiTest.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
+
+import apiTest.VO.MapDTO;
 
 
 
@@ -24,6 +27,7 @@ public class JSONGiver extends HttpServlet{
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("test", 000);
+        jsonObj.put("test2", "String");
         String json = jsonObj.toString();
         System.out.println(json);
         
@@ -31,11 +35,21 @@ public class JSONGiver extends HttpServlet{
 //        out.flush();
 //        out.close();
         
-        req.setAttribute("json", json);
-        req.getRequestDispatcher("JSONTest.jsp").forward(req, resp);
+//        req.setAttribute("json", json);
+        //req.getRequestDispatcher("JSONTest.jsp").forward(req, resp);
         
      // Assuming your json object is **jsonObject**, perform the following, it will return your json object  
         
+        MapDTO dto = null;
+        ArrayList<MapDTO> list = new ArrayList<MapDTO>();
+        for(int i= 0; i<2; i++) {
+        	dto = new MapDTO("test1", i, i, "test1", "test1", "test1");
+        	list.add(dto);
+        }
+        
+        System.out.println(list);;
+        req.setAttribute("list", list);
+        req.getRequestDispatcher("TakeJsonTest.jsp").forward(req, resp);
 	}
 
 }
