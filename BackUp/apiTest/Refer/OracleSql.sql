@@ -25,7 +25,7 @@ create table MAP(
     email VARCHAR2(30),
     x varchar2(25) not null,
     y varchar2(25) not null,
-    address varchar2(50) primary key,
+    map_address varchar2(50) primary key,
     special varchar2(50),
     title varchar2(15),
     CONSTRAINT fk_map FOREIGN KEY (email)
