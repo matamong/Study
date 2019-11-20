@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .boxgroup{
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            
+            /*공백처리 (자동줄바꿈 막기)*/
+            white-space: nowrap; 
+            /*가로만 scroll되게*/
+            overflow-x: scroll;
+        }
+        .box{
+            background-color: skyblue;
+            
+            /*고정된 사이즈를 가로로만 배치(flex 아님)*/
+            display: inline-block;
+            width: 400px;
+            height: 250px;
+        }
+        /*boxgroup에 active 클래스 더 함*/
+        .boxgroup.active{
+            background-color: rgba(0,0,0,0.1);
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body>
+    <div class="boxgroup">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    <p></p>
+    <p></p>
+    <p></p>
+    
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>    
+    <script>
+        $(document).ready(function(){
+            var isDown = false;   //mouse 누름
+            var starX = 0;        //mouse 클릭하는 곳 위치
+            var scrollLeft = 0;   //Scroll 위치
+            
+            $(".boxgroup").mousedown(function(e){
+                isDown = true;
+                $(".boxgroup").addClass("active");   //cursor grabbing
+                starX = e.pageX;   //mouse 좌표 가져오기
+                scrollLeft = $(".boxgroup").scrollLeft();
+                
+                $("p").eq(0).text("마우스의 위치 : " + starX);
+                $("p").eq(1).text("스크롤의 위치 : " + scrollLeft);
+            });
+            
+            $(".boxgroup").mousemove(function(e){
+                if(!isDown){
+                    //isDown = false(마우스 노클릭)가 되면 강제중지하게(return)
+                    return;
+                }
+                e.preventDefault();
+                var x = e.pageX;
+                var walk = (x-starX);
+                // var walk = (x-starX)*10; //좀 더 빨리 움직임
+                $(".boxgroup").scrollLeft(scrollLeft - walk);
+                $("p").eq(2).text("마우스 무빙 할 때 마우스 위치 : " + x);
+            });
+            
+            
+            $(".boxgroup").mouseup(function(){  //e는 굳이 필요없다.
+                isDown = false;
+                $(".boxgroup").removeClass("active");
+            });
+            $(".boxgroup").mouseleave(function(){  //e는 굳이 필요없다.
+                isDown = false;
+                $(".boxgroup").removeClass("active");
+            });
+        });
+    </script>
+</body>
+</html>

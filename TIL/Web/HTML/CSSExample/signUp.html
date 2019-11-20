@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+    <h1 align="center">회원가입</h1>
+    <table align="center" border="1" cellpadding="15">
+        <tr>
+            <td>아이디</td> 
+            <td><input type="text"><input type="button" value="중복확인"></td>
+        </tr>
+        <tr>
+            <td>이름</td> 
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>성별</td>
+            <td><input type="checkbox" >남 <input type="checkbox">여
+            </td>
+        </tr>
+        <tr>
+            <td>암호</td> 
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>암호확인</td> 
+            <td><input type="text"> *같은 암호를 입력하세요</td> 
+        </tr>
+        <tr>
+            <td>이메일</td> 
+            <td><input type="text">@<input type="text">
+                <select name="email">
+                    <option value="naver">naver.com</option>
+                    <option value="daum">daum.net</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>주소</td>
+            <td><input type="text"> <input type="button" value="주소찾기"></td>
+        </tr>
+        <tr>
+            <td>휴대폰</td>
+            <td>
+               <input type="checkbox">skt
+               <input type="checkbox">kt
+               <input type="checkbox">LGU+
+                <br>
+                <select name="phone">
+                    <option value="010">010</option>
+                    <option value="070">070</option>
+                </select>
+                -
+                <input type="text">
+                -
+                <input type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>관심</td>
+            <td>
+                <input type="checkbox">쇼핑
+                <input type="checkbox">게임
+                <input type="checkbox">여행
+                <input type="checkbox">기타
+            </td>
+        </tr>
+        <tr>
+            <td>자기소개</td>
+            <td>
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

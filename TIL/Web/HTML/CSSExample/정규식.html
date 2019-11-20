@@ -1,0 +1,1013 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0036)http://kio.zc.bz/Lecture/regexp.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>정규식</title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="정규식,Javascript,문법">
+  <meta name="Description" content="">
+
+  <script language="JavaScript">
+  <!--
+    var tagColor = [];
+    tagColor.push([/\b(function)\b/g, "#6633FF" ]);
+    tagColor.push([/\b(String)\b/g, "#FF0000" ]);
+    tagColor.push([/\b(document)\b/g, "#FF0000" ]);
+    tagColor.push([/\b(return)\b/g, "#CC00CC" ]);
+    tagColor.push([/\b(var)\b/g, "#FF3399" ]);
+    tagColor.push([/\b(if)\b/g, "#6699CC" ]);
+    tagColor.push([/\b(else)\b/g, "#6699CC" ]);
+    tagColor.push([/\s+(\w+)\s*\(/g, "#00FF66" ]);
+
+    var cnt = 0;
+    function colorful(object){
+        var inner = object.innerHTML;
+        inner = inner.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;").replace(/ /g, "&nbsp;").replace(/\n/g, "<br>\n");
+        for( cnt=0; cnt < tagColor.length; cnt++){
+            inner = inner.replace(tagColor[cnt][0], function (str, p1){
+                return str.replace(p1, "<font color = '" + tagColor[cnt][1] + "'>" + p1 + "</font>");
+            });
+        }
+        var newDiv = document.createElement("div");
+        newDiv.id = object.id;
+        newDiv.innerHTML = inner;
+        object.parentElement.insertBefore(newDiv, object);
+        object.parentElement.removeChild(object);
+    }
+
+    function XMPColor(){
+        var xmps = document.getElementsByTagName("XMP");
+        while( xmps.length > 0 ){
+            colorful(xmps[0]);
+        }
+    }
+    /*
+    * checkReg 함수를 호출하여 결과를 화면에 뿌린다.
+    */
+    function writeExample(re, tests){
+        document.write(checkReg(re,tests));
+    }
+
+    /*
+    * (정규식, 체크할 스트링 array)
+    * 정규식을 뿌려주고, array의 element들을 입력받은 정규식에 적합한지 판단하여
+    * 결과를 String으로 돌려준다.
+    */
+    function checkReg(re, tests){
+        var res = "<b>" + re.toString() +"</b>";
+        res += "<UL>";
+        for (var i=0; i< tests.length; i++){
+            var result ="";
+            if (re.test(tests[i])){
+                result = tests[i].replace(re, function (str){ 
+                        return "<span style=\"background-color:#00ff66;\"><b>" + str  + "</b></span>";
+                    } ) + "<font color=\"green\"><b>ⓥ</b></font>";
+                var remembered = re.exec(tests[i]);
+                if (remembered != null && remembered.length > 1){
+                    for (var j=1; j< remembered.length; j++){
+                        result += "<br>" + j +"th :"+ remembered[j]; 
+                    }
+                }
+            }else{
+                result = tests[i] + "<font color=\"red\"><i>ⓘ</i></font>";
+            }
+            res +="<LI>"+ result + "<br>";
+        }
+        res +="</UL>";
+        return res;
+    }
+  //-->
+  </script>
+ </head>
+
+ <body onload="XMPColor()">
+
+ 
+<div style="background-color:#CCFFCC;color:#3333FF">본 문서의 저작권은 <a href="http://iilii.egloos.com/4445254">anti-nhn license</a>에 따릅니다.
+</div>
+
+<div style="background-color:#FFFFCC">*본 페이지에는 자바스크립트가 많이 들어있습니다. 자바스크립트가 실행되지 않으면 제대로 보이지 않습니다.<br>
+*본 페이지는 IE용 태그를 사용하였으므로, firefox 등에서는 정상작동하지 않을 수 있습니다.<br>
+*테스트를 해보실라문 <a href="http://kio.zc.bz/Lecture/reg_test.html">요기를 클릭</a>
+</div>
+
+<h1>차례</h1>
+<ul>
+    <li><a href="http://kio.zc.bz/Lecture/regexp.html#chap01">1. 정규식이란?</a>
+    </li><li><a href="http://kio.zc.bz/Lecture/regexp.html#chap02">2. 정규식 만들기</a>
+    </li><li><a href="http://kio.zc.bz/Lecture/regexp.html#chap03">3. 정규식 표현법</a>
+    </li><li><a href="http://kio.zc.bz/Lecture/regexp.html#chap04">4. 정규식 사용 예제</a>
+    </li><li><a href="http://kio.zc.bz/Lecture/regexp.html#chap05">5. Javascript 정규식 함수</a>
+    </li><li><a href="http://kio.zc.bz/Lecture/regexp.html#chap06">6. 정규식으로 만든 유용한 Javascript 함수</a>
+    </li><li><a href="http://kio.zc.bz/Lecture/regexp.html#chap07">7. Java 정규식 함수</a>
+</li></ul>
+
+ <a name="chap01"><h1>1. 정규식이란?</h1></a>
+    <ul style="font-size:12pt;color:#7777FF">
+        <li>String의 <b><font color="#FF0000">검색</font></b>, <b><font color="#FF0000">치환</font></b>, <b><font color="#FF0000">추출</font></b>을 위한 패턴.
+        </li><li>언어별 사용법은 대동소이함.
+        </li><li>패턴예&gt;전화번호 형식, 이메일 형식 등.
+    </li></ul>
+
+
+ <a name="chap02"><h1>2. 정규식 만들기</h1></a>
+ <ol style="font-size:14pt;color:#6666FF">
+    <li>Javascript
+    <ul style="font-size:12pt;color:#7777FF">
+        <li><div style="background-color:#FFFFCC">var regexp = <i>/pattern/[flags]</i> ;<br>
+        var test = regexp.test(<i>to be checked</i>)</div>
+        </li><li><div style="background-color:#CCFFFF">var regexp = new RegExp(<i>"pattern"[, "flags"]</i>);<br>
+        var test = regexp.test(<i>to be checked</i>) </div>
+        </li><li>flags for javascript
+        <ul style="font-size:12pt;color:#7777FF">
+            <li>g : global match, 일반적으로 패턴이 1번만 발견되면 찾기를 종료하지만, g flag가 있으면, 문자열 내에서 모든 패턴을 찾는다.
+            </li><li>i : ignore case, 대소문자를 고려하지 않고 체크한다.[a-z]와 [A-Z]는 같은 표현이 된다.
+            </li><li>m : match over multiple lines, 여러 줄에 걸쳐 체크를 한다.
+        </li></ul>
+    </li></ul>
+    </li><li>Java
+    <ul style="font-size:12pt;color:#7777FF">
+        <li>java.util.regex package
+        </li><li><div style="background-color:#FFFFCC">Pattern p = Pattern.compile(<i>"pattern"</i>); <br>
+            Matcher m = p.matcher(<i>"string to be checked"</i>); <br>
+            boolean b = m.matches();</div>
+        </li><li><div style="background-color:#CCFFFF">
+        boolean b = Pattern.matches(<i>"pattern"</i>, <i>"string to be checked"</i>);</div>
+    </li></ul>
+ </li></ol>
+
+
+ <a name="chap03"><h1>3. 정규식 표현법</h1></a>
+ *<font color="green"><b>ⓥ</b></font>는 valid, <font color="red"><i>ⓘ</i></font>는 invalid<br>
+ *형광 초록 바탕 부분은 매칭되는 부분.<br>
+ *예제는 javascript 기준이며, 언어에 따라 다소 차이가 발생할 수 있다.
+  <table width="1024" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC">
+  <tbody><tr bgcolor="#DDDDDD">
+    <th width="50">문자</th>
+    <th width="300">용도</th>
+    <th width="426">예제</th>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\</td>
+    <td width="300">
+    <ul>
+    <li>특수문자를 의미
+    </li><li>특수문자의 사용을 제외(특수문자 앞에서)
+    </li></ul>
+    </td>
+    <td>
+    <ul>
+        <li>b는 b라는 글자를 의미 하지만 \b는 단어 경계를 의미
+        </li><li>*은 0번이상 반복이라는 의미이지만, \*는 *이라는 글자를 의미.
+    </li></ul>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>^</td>
+    <td width="300">문자열의 시작. []안에서는 not의 의미<br>
+        * ^A는 "A로 시작"이라기 보다는 "시작 직후에 A가 나온다"는 의미로 해석하는 것이 좋다. 즉, 시작과 끝과 같은 빈 공간을 하나의 문자로 간주하는 것이 좋다.
+    </td>
+    <td>
+    <script language="JavaScript">
+    <!--
+        writeExample(/^A/g, ["A string", "an A"]);
+        writeExample(/[^A]/g, ["A string", "an A"]);
+    //-->
+    </script><b>/^A/g</b><ul><li><span style="background-color:#00ff66;"><b>A</b></span> string<font color="green"><b>ⓥ</b></font><br></li><li>an A<font color="red"><i>ⓘ</i></font><br></li></ul><b>/[^A]/g</b><ul><li>A<span style="background-color:#00ff66;"><b> </b></span><span style="background-color:#00ff66;"><b>s</b></span><span style="background-color:#00ff66;"><b>t</b></span><span style="background-color:#00ff66;"><b>r</b></span><span style="background-color:#00ff66;"><b>i</b></span><span style="background-color:#00ff66;"><b>n</b></span><span style="background-color:#00ff66;"><b>g</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>a</b></span><span style="background-color:#00ff66;"><b>n</b></span><span style="background-color:#00ff66;"><b> </b></span>A<font color="green"><b>ⓥ</b></font><br></li></ul>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>$</td>
+    <td width="300">문자열의 마지막<br>
+    </td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/t$/, ["eat", "GREAT"]);
+    //-->
+    </script><b>/t$/</b><ul><li>ea<span style="background-color:#00ff66;"><b>t</b></span><font color="green"><b>ⓥ</b></font><br></li><li>GREAT<font color="red"><i>ⓘ</i></font><br></li></ul>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>*</td>
+    <td width="300">0번 이상 반복</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/ab*d/g, ["ad", "abd", "abdcdeabbbbdedb", "ab" , "axd"]);
+    //-->
+    </script><b>/ab*d/g</b><ul><li><span style="background-color:#00ff66;"><b>ad</b></span><font color="green"><b>ⓥ</b></font><br></li><li>abd<font color="red"><i>ⓘ</i></font><br></li><li><span style="background-color:#00ff66;"><b>abd</b></span>cde<span style="background-color:#00ff66;"><b>abbbbd</b></span>edb<font color="green"><b>ⓥ</b></font><br></li><li>ab<font color="red"><i>ⓘ</i></font><br></li><li>axd<font color="red"><i>ⓘ</i></font><br></li></ul>    
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>+</td>
+    <td width="300">1번 이상 반복 ( = {1,} )</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/ab+d/g, ["ad", "abd", "abdcdeabbbbdedb", "ab" , "axd"]);
+    //-->
+    </script><b>/ab+d/g</b><ul><li>ad<font color="red"><i>ⓘ</i></font><br></li><li><span style="background-color:#00ff66;"><b>abd</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>abd</b></span>cde<span style="background-color:#00ff66;"><b>abbbbd</b></span>edb<font color="green"><b>ⓥ</b></font><br></li><li>ab<font color="red"><i>ⓘ</i></font><br></li><li>axd<font color="red"><i>ⓘ</i></font><br></li></ul>    
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>?</td>
+    <td width="300">0번 이나 1번</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/e?le?/g, ["angel", "angle", "element"]);
+        writeExample(/abc\-?d/g, ["abc-d", "abcd"]);
+    //-->
+    </script><b>/e?le?/g</b><ul><li>ang<span style="background-color:#00ff66;"><b>el</b></span><font color="green"><b>ⓥ</b></font><br></li><li>angle<font color="red"><i>ⓘ</i></font><br></li><li><span style="background-color:#00ff66;"><b>ele</b></span>ment<font color="green"><b>ⓥ</b></font><br></li></ul><b>/abc\-?d/g</b><ul><li><span style="background-color:#00ff66;"><b>abc-d</b></span><font color="green"><b>ⓥ</b></font><br></li><li>abcd<font color="red"><i>ⓘ</i></font><br></li></ul>    
+
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>.</td>
+    <td width="300">new line 을 제외한 모든 글자</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/.n/g, ["nay, an apple is on the tree", "nay"]);
+    //-->
+    </script><b>/.n/g</b><ul><li>nay, <span style="background-color:#00ff66;"><b>an</b></span> apple is <span style="background-color:#00ff66;"><b>on</b></span> the tree<font color="green"><b>ⓥ</b></font><br></li><li>nay<font color="red"><i>ⓘ</i></font><br></li></ul>    
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>(x)</td>
+    <td width="300">x를 체크하고 체크한 값을 변수로 저장</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/(f..) (b..)/, ["foo bar"]);
+    //-->
+    </script><b>/(f..) (b..)/</b><ul><li><span style="background-color:#00ff66;"><b>foo bar</b></span><font color="green"><b>ⓥ</b></font><br>1th :foo<br>2th :bar<br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>(?:x)</td>
+    <td width="300">x를 체크하고 체크한 값을 변수로 저장하지 않음</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/(?:f..) (b..)/, ["foo bar", "bar foo"]);
+    //-->
+    </script><b>/(?:f..) (b..)/</b><ul><li><span style="background-color:#00ff66;"><b>foo bar</b></span><font color="green"><b>ⓥ</b></font><br>1th :bar<br></li><li>bar foo<font color="red"><i>ⓘ</i></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>x|y</td>
+    <td width="300">x 또는 y</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/green|red/, ["green apple", "red apple", "yellow apple"]);
+    //-->
+    </script><b>/green|red/</b><ul><li><span style="background-color:#00ff66;"><b>green</b></span> apple<font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>red</b></span> apple<font color="green"><b>ⓥ</b></font><br></li><li>yellow apple<font color="red"><i>ⓘ</i></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>x(?=y)</td>
+    <td width="300">x후에 y가 나오고, x부분만 매칭되는 부분으로 간주</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/blah(?=soft|hard)/, ["blahsoft", "blahhard", "blah soft"]);
+        writeExample(/blah(?=soft).*/, ["blahsoft", "blahhard", "blah soft"]);
+    //-->
+    </script><b>/blah(?=soft|hard)/</b><ul><li><span style="background-color:#00ff66;"><b>blah</b></span>soft<font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>blah</b></span>hard<font color="green"><b>ⓥ</b></font><br></li><li>blah soft<font color="red"><i>ⓘ</i></font><br></li></ul><b>/blah(?=soft).*/</b><ul><li><span style="background-color:#00ff66;"><b>blahsoft</b></span><font color="green"><b>ⓥ</b></font><br></li><li>blahhard<font color="red"><i>ⓘ</i></font><br></li><li>blah soft<font color="red"><i>ⓘ</i></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>x(?!y)</td>
+    <td width="300">x가 나오고 그 뒤에 y가 있으면 안 됨</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/blah(?!hard)/, ["blahsoft", "blahhard", "blah soft"]);
+    //-->
+    </script><b>/blah(?!hard)/</b><ul><li><span style="background-color:#00ff66;"><b>blah</b></span>soft<font color="green"><b>ⓥ</b></font><br></li><li>blahhard<font color="red"><i>ⓘ</i></font><br></li><li><span style="background-color:#00ff66;"><b>blah</b></span> soft<font color="green"><b>ⓥ</b></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>{n}</td>
+    <td width="300">앞에 지정한 것이 n개</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/.{3}/, ["ab", "abc", "abcd", "홍길동"]);
+    //-->
+    </script><b>/.{3}/</b><ul><li>ab<font color="red"><i>ⓘ</i></font><br></li><li><span style="background-color:#00ff66;"><b>abc</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>abc</b></span>d<font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>홍길동</b></span><font color="green"><b>ⓥ</b></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>{n,}</td>
+    <td width="300">앞에 지정한 것이 n개 이상</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/.{3,}/, ["ab", "abc", "abcd"]);
+    //-->
+    </script><b>/.{3,}/</b><ul><li>ab<font color="red"><i>ⓘ</i></font><br></li><li><span style="background-color:#00ff66;"><b>abc</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>abcd</b></span><font color="green"><b>ⓥ</b></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>{n,m}</td>
+    <td width="300">앞에 지정한 것이 n~m개</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/.{3,5}/, ["ab", "abc", "abcd", "홍길동"]);
+    //-->
+    </script><b>/.{3,5}/</b><ul><li>ab<font color="red"><i>ⓘ</i></font><br></li><li><span style="background-color:#00ff66;"><b>abc</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>abcd</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>홍길동</b></span><font color="green"><b>ⓥ</b></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>[xyz]</td>
+    <td width="300">x나 y나 z. []안에는 얼마든지 쓸 수 있다.</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/[abc]{2}/, ["ab", "abc", "adbd"]);
+    //-->
+    </script><b>/[abc]{2}/</b><ul><li><span style="background-color:#00ff66;"><b>ab</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>ab</b></span>c<font color="green"><b>ⓥ</b></font><br></li><li>adbd<font color="red"><i>ⓘ</i></font><br></li></ul>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>[x-z]</td>
+    <td width="300">x에서 z까지</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/[a-z]{4,}/g, ["She sells sea shells by the sea shore는 Very 어렵다!"]);
+    //-->
+    </script><b>/[a-z]{4,}/g</b><ul><li>She <span style="background-color:#00ff66;"><b>sells</b></span> sea <span style="background-color:#00ff66;"><b>shells</b></span> by the sea <span style="background-color:#00ff66;"><b>shore</b></span>는 Very 어렵다!<font color="green"><b>ⓥ</b></font><br></li></ul>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>[^xyz]</td>
+    <td width="300">x,y,z를 제외한 나머지 모든 것</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/[^a-z]{2,}/g, ["I'm a good man", "I am A good Man"]);
+    //-->
+    </script><b>/[^a-z]{2,}/g</b><ul><li><span style="background-color:#00ff66;"><b>I'</b></span>m a good man<font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>I </b></span>am<span style="background-color:#00ff66;"><b> A </b></span>good<span style="background-color:#00ff66;"><b> M</b></span>an<font color="green"><b>ⓥ</b></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>[\b]</td>
+    <td width="300">백스페이스. \b와 혼동하지 말것.</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/[\b]/g, ["ab\bcd"]);
+    //-->
+    </script><b>/[\b]/g</b><ul><li>ab<span style="background-color:#00ff66;"><b></b></span>cd<font color="green"><b>ⓥ</b></font><br></li></ul>
+    일반적인 String에서는 \b가 백스페이스를 의미한다.
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\b</td>
+    <td width="300">단어의 경계.[\b]와 혼동하지 말것.</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/\bn[a-z]/g, ["I am not a boy", "online", "nope"]);
+    //-->
+    </script><b>/\bn[a-z]/g</b><ul><li>I am <span style="background-color:#00ff66;"><b>no</b></span>t a boy<font color="green"><b>ⓥ</b></font><br></li><li>online<font color="red"><i>ⓘ</i></font><br></li><li><span style="background-color:#00ff66;"><b>no</b></span>pe<font color="green"><b>ⓥ</b></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\B</td>
+    <td width="300">\b 를 제외한 전부</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/\Bn[a-z]/g, ["noonday", "online", "nope"]);
+    //-->
+    </script><b>/\Bn[a-z]/g</b><ul><li>noo<span style="background-color:#00ff66;"><b>nd</b></span>ay<font color="green"><b>ⓥ</b></font><br></li><li>online<font color="red"><i>ⓘ</i></font><br></li><li>nope<font color="red"><i>ⓘ</i></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\cX</td>
+    <td width="300">컨트롤X와 매칭. \cM은 컨트롤M과 매칭</td>
+    <td></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\d</td>
+    <td width="300">숫자.[0-9]와 같음</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/\d/g, ["7 eight 9", "123"]);
+        writeExample(/^0[0-9]{2}/g, ["0120", "12011"]);
+    //-->
+    </script><b>/\d/g</b><ul><li><span style="background-color:#00ff66;"><b>7</b></span> eight <span style="background-color:#00ff66;"><b>9</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>1</b></span><span style="background-color:#00ff66;"><b>2</b></span><span style="background-color:#00ff66;"><b>3</b></span><font color="green"><b>ⓥ</b></font><br></li></ul><b>/^0[0-9]{2}/g</b><ul><li><span style="background-color:#00ff66;"><b>012</b></span>0<font color="green"><b>ⓥ</b></font><br></li><li>12011<font color="red"><i>ⓘ</i></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\D</td>
+    <td width="300">\d 를 제외한 전부</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/\D/g, ["7 eight 9", "12?3" ]);
+    //-->
+    </script><b>/\D/g</b><ul><li>7<span style="background-color:#00ff66;"><b> </b></span><span style="background-color:#00ff66;"><b>e</b></span><span style="background-color:#00ff66;"><b>i</b></span><span style="background-color:#00ff66;"><b>g</b></span><span style="background-color:#00ff66;"><b>h</b></span><span style="background-color:#00ff66;"><b>t</b></span><span style="background-color:#00ff66;"><b> </b></span>9<font color="green"><b>ⓥ</b></font><br></li><li>12<span style="background-color:#00ff66;"><b>?</b></span>3<font color="green"><b>ⓥ</b></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\f</td>
+    <td width="300">form-feed</td>
+    <td></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\n</td>
+    <td width="300">new line</td>
+    <td></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\r</td>
+    <td width="300">carriage return</td>
+    <td></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\s</td>
+    <td width="300">white space<br>ex&gt;탭, 띄어쓰기, \n, \r</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/k\s/g, ["korea", "blank is", "blank"]);
+    //-->
+    </script><b>/k\s/g</b><ul><li>korea<font color="red"><i>ⓘ</i></font><br></li><li>blan<span style="background-color:#00ff66;"><b>k </b></span>is<font color="green"><b>ⓥ</b></font><br></li><li>blank<font color="red"><i>ⓘ</i></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\S</td>
+    <td width="300">\s 를 제외한 전부</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/k\S/g, ["korea", "blank is"]);
+    //-->
+    </script><b>/k\S/g</b><ul><li><span style="background-color:#00ff66;"><b>ko</b></span>rea<font color="green"><b>ⓥ</b></font><br></li><li>blank is<font color="red"><i>ⓘ</i></font><br></li></ul></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\t</td>
+    <td width="300">탭</td>
+    <td></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\v</td>
+    <td width="300">vertical tab</td>
+    <td></td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\w</td>
+    <td width="300">알파벳+숫자+_. [A-Za-z0-9_]와 동일</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/\w/g, ["!@#$%^&*()+_-[]{}\\|\"':;,.<>?/"]);
+    //-->
+    </script><b>/\w/g</b><ul><li>!@#$%^&amp;*()+<span style="background-color:#00ff66;"><b>_</b></span>-[]{}\|"':;,.&lt;&gt;?/<font color="green"><b>ⓥ</b></font><br></li></ul>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\W</td>
+    <td width="300">\w 빼고 전부</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/\W/g, ["!@#$%^&*()+_-[]{}\\|\"':;,.<>?/"]);
+    //-->
+    </script><b>/\W/g</b><ul><li><span style="background-color:#00ff66;"><b>!</b></span><span style="background-color:#00ff66;"><b>@</b></span><span style="background-color:#00ff66;"><b>#</b></span><span style="background-color:#00ff66;"><b>$</b></span><span style="background-color:#00ff66;"><b>%</b></span><span style="background-color:#00ff66;"><b>^</b></span><span style="background-color:#00ff66;"><b>&amp;</b></span><span style="background-color:#00ff66;"><b>*</b></span><span style="background-color:#00ff66;"><b>(</b></span><span style="background-color:#00ff66;"><b>)</b></span><span style="background-color:#00ff66;"><b>+</b></span>_<span style="background-color:#00ff66;"><b>-</b></span><span style="background-color:#00ff66;"><b>[</b></span><span style="background-color:#00ff66;"><b>]</b></span><span style="background-color:#00ff66;"><b>{</b></span><span style="background-color:#00ff66;"><b>}</b></span><span style="background-color:#00ff66;"><b>\</b></span><span style="background-color:#00ff66;"><b>|</b></span><span style="background-color:#00ff66;"><b>"</b></span><span style="background-color:#00ff66;"><b>'</b></span><span style="background-color:#00ff66;"><b>:</b></span><span style="background-color:#00ff66;"><b>;</b></span><span style="background-color:#00ff66;"><b>,</b></span><span style="background-color:#00ff66;"><b>.</b></span><span style="background-color:#00ff66;"><b>&lt;</b></span><span style="background-color:#00ff66;"><b>&gt;</b></span><span style="background-color:#00ff66;"><b>?</b></span><span style="background-color:#00ff66;"><b>/</b></span><font color="green"><b>ⓥ</b></font><br></li></ul>
+    </td>
+  </tr>
+
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\n</td>
+    <td width="300">\n이 자연수일때, ()로 지정한 n번째 정규식</td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/(.{2})e tru\1 is out \1ere/, ["the truth is out there ..."]);
+    //-->
+    </script><b>/(.{2})e tru\1 is out \1ere/</b><ul><li><span style="background-color:#00ff66;"><b>the truth is out there</b></span> ...<font color="green"><b>ⓥ</b></font><br>1th :th<br></li></ul>
+    (th)가 \1로 지정된다.
+    </td>
+  </tr>
+
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\xhh</td>
+    <td width="300">hh는 hexacode, </td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/[\x21-\x40]/g, ["!@#$%^&*()po"]);
+    //-->
+    </script><b>/[\x21-\x40]/g</b><ul><li><span style="background-color:#00ff66;"><b>!</b></span><span style="background-color:#00ff66;"><b>@</b></span><span style="background-color:#00ff66;"><b>#</b></span><span style="background-color:#00ff66;"><b>$</b></span><span style="background-color:#00ff66;"><b>%</b></span>^<span style="background-color:#00ff66;"><b>&amp;</b></span><span style="background-color:#00ff66;"><b>*</b></span><span style="background-color:#00ff66;"><b>(</b></span><span style="background-color:#00ff66;"><b>)</b></span>po<font color="green"><b>ⓥ</b></font><br></li></ul>
+    <a href="http://www.utoronto.ca/webdocs/HTMLdocs/NewHTML/iso_table.html" target="_blank">Code table 보기</a>
+    </td>
+  </tr>
+
+  <tr valign="top" bgcolor="#FFFFFF">
+    <td>\uhhhh</td>
+    <td width="300">hhhh는 hexacode, </td>
+    <td><script language="JavaScript">
+    <!--
+        writeExample(/[\u3131-\u3163\uac00-\ud7a3]/g, ["나는 blah 직원입니다.ㅋㅋ"]);
+    //-->
+    </script><b>/[\u3131-\u3163\uac00-\ud7a3]/g</b><ul><li><span style="background-color:#00ff66;"><b>나</b></span><span style="background-color:#00ff66;"><b>는</b></span> blah <span style="background-color:#00ff66;"><b>직</b></span><span style="background-color:#00ff66;"><b>원</b></span><span style="background-color:#00ff66;"><b>입</b></span><span style="background-color:#00ff66;"><b>니</b></span><span style="background-color:#00ff66;"><b>다</b></span>.<span style="background-color:#00ff66;"><b>ㅋ</b></span><span style="background-color:#00ff66;"><b>ㅋ</b></span><font color="green"><b>ⓥ</b></font><br></li></ul>
+    코드 번호&gt; 3131:ㄱ    3163:ㅣ ac00:가    d7a3:힣 (javascript, java)
+    </td>
+  </tr>
+  </tbody></table>
+<br>
+
+ <a name="chap04"><h1>4. 정규식 사용 예제</h1></a>
+
+  <table width="1024" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC">
+  <tbody><tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^[0-9]/, ["09없다", "100점", "집이 10평"]);
+    //-->
+    </script><b>/^[0-9]/</b><ul><li><span style="background-color:#00ff66;"><b>0</b></span>9없다<font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>1</b></span>00점<font color="green"><b>ⓥ</b></font><br></li><li>집이 10평<font color="red"><i>ⓘ</i></font><br></li></ul>
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^\w+$/, ["blahsoft","blah(co)" ,"blah soft"]);
+    //-->
+    </script><b>/^\w+$/</b><ul><li><span style="background-color:#00ff66;"><b>blahsoft</b></span><font color="green"><b>ⓥ</b></font><br></li><li>blah(co)<font color="red"><i>ⓘ</i></font><br></li><li>blah soft<font color="red"><i>ⓘ</i></font><br></li></ul>
+  </td>
+</tr>
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^[a-zA-Z][\w\-]{4,11}$/, ["blah2010","blah-2010!", "2010blah", "ILikegoooooooooooooooooogle"]);
+    //-->
+    </script><b>/^[a-zA-Z][\w\-]{4,11}$/</b><ul><li><span style="background-color:#00ff66;"><b>blah2010</b></span><font color="green"><b>ⓥ</b></font><br></li><li>blah-2010!<font color="red"><i>ⓘ</i></font><br></li><li>2010blah<font color="red"><i>ⓘ</i></font><br></li><li>ILikegoooooooooooooooooogle<font color="red"><i>ⓘ</i></font><br></li></ul>
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/, ["02-6288-2114", "031-779-7114", "12-1234-5678", "02-6288-2114545", "02-0288-2114"]);
+    //-->
+    </script><b>/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/</b><ul><li><span style="background-color:#00ff66;"><b>02-6288-2114</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>031-779-7114</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>12-1234-5678</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>02-6288-2114</b></span>545<font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>02-0288-2114</b></span><font color="green"><b>ⓥ</b></font><br></li></ul>
+  </td>
+</tr>
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^0\d{1,2}-[1-9]\d{2,3}-\d{4}$/, ["02-6288-2114", "031-779-7114", "12-1234-5678" , "02-2123-12314545", "02-0288-2114"]);
+    //-->
+    </script><b>/^0\d{1,2}-[1-9]\d{2,3}-\d{4}$/</b><ul><li><span style="background-color:#00ff66;"><b>02-6288-2114</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>031-779-7114</b></span><font color="green"><b>ⓥ</b></font><br></li><li>12-1234-5678<font color="red"><i>ⓘ</i></font><br></li><li>02-2123-12314545<font color="red"><i>ⓘ</i></font><br></li><li>02-0288-2114<font color="red"><i>ⓘ</i></font><br></li></ul>
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^[\.a-zA-Z0-9\-]+\.[a-zA-Z]{2,}/, ["r-d.blah.co.kr","r-d.blah.co.kr입니다.", "blah..co.kr", "a.com"]);
+    //-->
+    </script><b>/^[\.a-zA-Z0-9\-]+\.[a-zA-Z]{2,}/</b><ul><li><span style="background-color:#00ff66;"><b>r-d.blah.co.kr</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>r-d.blah.co.kr</b></span>입니다.<font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>blah..co.kr</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>a.com</b></span><font color="green"><b>ⓥ</b></font><br></li></ul>
+  </td>
+</tr>
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^(?:[\w\-]{2,}\.)+[a-zA-Z]{2,}$/, ["r-d.blah.co.kr","r-d.blah.co.kr입니다." ,"blah..co.kr", "a.com"]);
+    //-->
+    </script><b>/^(?:[\w\-]{2,}\.)+[a-zA-Z]{2,}$/</b><ul><li><span style="background-color:#00ff66;"><b>r-d.blah.co.kr</b></span><font color="green"><b>ⓥ</b></font><br></li><li>r-d.blah.co.kr입니다.<font color="red"><i>ⓘ</i></font><br></li><li>blah..co.kr<font color="red"><i>ⓘ</i></font><br></li><li>a.com<font color="red"><i>ⓘ</i></font><br></li></ul>
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^[_a-zA-Z0-9\-]+@[\._a-zA-Z0-9\-]+\.[a-zA-Z]{2,}/, ["abc@haha.co.kr", "abc@haha..co.kr", "hwang@a.com"]);
+    //-->
+    </script><b>/^[_a-zA-Z0-9\-]+@[\._a-zA-Z0-9\-]+\.[a-zA-Z]{2,}/</b><ul><li><span style="background-color:#00ff66;"><b>abc@haha.co.kr</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>abc@haha..co.kr</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>hwang@a.com</b></span><font color="green"><b>ⓥ</b></font><br></li></ul>
+  </td>
+</tr>
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^[\w\-]+@(?:[\w\-]{2,}\.)+[a-zA-Z]{2,}$/, ["abc@haha.co.kr", "abc@haha..co.kr", "hwang@a.com"]);
+    //-->
+    </script><b>/^[\w\-]+@(?:[\w\-]{2,}\.)+[a-zA-Z]{2,}$/</b><ul><li><span style="background-color:#00ff66;"><b>abc@haha.co.kr</b></span><font color="green"><b>ⓥ</b></font><br></li><li>abc@haha..co.kr<font color="red"><i>ⓘ</i></font><br></li><li>hwang@a.com<font color="red"><i>ⓘ</i></font><br></li></ul>
+  </td>
+</tr>
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+    writeExample(/^([a-z]+):\/\/((?:[a-z\d\-]{2,}\.)+[a-z]{2,})(:\d{1,5})?(\/[^\?]*)?(\?.+)?$/i, ["http://www.blah.co.kr/main/index.jsp?var=value", "http://www.blah.co.kr/main/index.jsp", "http://blah.co.kr/", "http://blah.co.kr",  "http://blah.co.kr:8088/main/"]);
+    //-->
+    </script><b>/^([a-z]+):\/\/((?:[a-z\d\-]{2,}\.)+[a-z]{2,})(:\d{1,5})?(\/[^\?]*)?(\?.+)?$/i</b><ul><li><span style="background-color:#00ff66;"><b>http://www.blah.co.kr/main/index.jsp?var=value</b></span><font color="green"><b>ⓥ</b></font><br>1th :http<br>2th :www.blah.co.kr<br>3th :undefined<br>4th :/main/index.jsp<br>5th :?var=value<br></li><li><span style="background-color:#00ff66;"><b>http://www.blah.co.kr/main/index.jsp</b></span><font color="green"><b>ⓥ</b></font><br>1th :http<br>2th :www.blah.co.kr<br>3th :undefined<br>4th :/main/index.jsp<br>5th :undefined<br></li><li><span style="background-color:#00ff66;"><b>http://blah.co.kr/</b></span><font color="green"><b>ⓥ</b></font><br>1th :http<br>2th :blah.co.kr<br>3th :undefined<br>4th :/<br>5th :undefined<br></li><li><span style="background-color:#00ff66;"><b>http://blah.co.kr</b></span><font color="green"><b>ⓥ</b></font><br>1th :http<br>2th :blah.co.kr<br>3th :undefined<br>4th :undefined<br>5th :undefined<br></li><li><span style="background-color:#00ff66;"><b>http://blah.co.kr:8088/main/</b></span><font color="green"><b>ⓥ</b></font><br>1th :http<br>2th :blah.co.kr<br>3th ::8088<br>4th :/main/<br>5th :undefined<br></li></ul>
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td>
+  <script language="JavaScript">
+    <!--
+        writeExample(/^[ㄱ-ㅣ가-힣]+$/, ["티맥스소프트", "ㅜㅜ", "ㅎㅎ"]);
+    //-->
+    </script><b>/^[ㄱ-ㅣ가-힣]+$/</b><ul><li><span style="background-color:#00ff66;"><b>티맥스소프트</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>ㅜㅜ</b></span><font color="green"><b>ⓥ</b></font><br></li><li><span style="background-color:#00ff66;"><b>ㅎㅎ</b></span><font color="green"><b>ⓥ</b></font><br></li></ul>
+  </td>
+</tr>
+
+</tbody></table>
+<br>
+
+ <a name="chap05"><h1>5. Javascript 정규식 함수</h1></a>
+  <table width="1024" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC">
+  <tbody><tr bgcolor="#DDDDDD">
+  <th width="200">함수</th>
+  <th width="450">코드예제</th>
+  <th width="455">코드설명</th>
+  </tr>
+
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="200">Array RegExp.exec (<i>to be checked</i>)</td>
+  <td valign="top" width="450">
+  <div id="ex_exec"><br>
+<font color="#FF3399">var</font>&nbsp;myRe=/d(b+)(d)/ig;<br>
+<font color="#FF3399">var</font>&nbsp;myArray&nbsp;=&nbsp;myRe.exec("cdbBdbsbz");<br>
+</div>
+<p>
+
+  <script language="JavaScript">
+    <!--
+        writeExample(/d(b+)(d)/ig, ["cdbBdbsbz"]);
+    //-->
+    </script><b>/d(b+)(d)/gi</b></p><ul><li>c<span style="background-color:#00ff66;"><b>dbBd</b></span>bsbz<font color="green"><b>ⓥ</b></font><br>1th :bB<br>2th :d<br></li></ul>
+  </td>
+  <td width="455">
+<script language="JavaScript1.2">
+    <!--
+    eval(document.getElementById('ex_exec').innerHTML);
+
+    document.write("myArray.index =" + myArray.index +" ; (처음으로 매칭되는 위치, 컴터가 늘 그렇듯 위치는 0번째부터 센다.)<br>");
+    document.write("myArray.input = "+ myArray.input +"; (체크할 대상)<br>");
+    document.write("myArray[0] = "+myArray[0]+";(검사에 통과한 부분)<br>");
+    document.write("myArray[1] = "+myArray[1]+";(1번째 괄호에서 체크된 부분)<br>");
+    document.write("myArray[2] = "+myArray[2]+";(2번째 괄호에서 체크된 부분)<br>");
+    document.write("<br>");
+    
+    document.write("myRe.lastIndex =" + myRe.lastIndex +" ; (다음번 체크를 하기위한 위치.)<br>");
+    document.write("myRe.ignoreCase = " + myRe.ignoreCase +"; (/i 플래그 체크)<br>");
+    document.write("myRe.global = " + myRe.global +"; (/g 플래그 체크)<br>");
+    document.write("myRe.multiline = " + myRe.multiline +"; (/m 플래그 체크)<br>");
+
+
+    document.write("<br>");
+    document.write("RegExp.$_ = "+(RegExp.$_ ) +";(입력한 스트링)<br>");
+//    document.write("RegExp.$& = "+(RegExp.$& ) +";(정규식)<br>");
+//    document.write("RegExp.$+ = "+(RegExp.$+ ) +";(정규식)<br>");
+//    document.write("RegExp.$' = "+(RegExp.$' ) +";(정규식)<br>");
+//    document.write("RegExp.$` = "+(RegExp.$` ) +";(정규식)<br>");
+    document.write("RegExp.$1 = "+(RegExp.$1 ) +";(1번째 괄호에서 체크된 부분 )<br>");
+    //-->
+</script>myArray.index =1 ; (처음으로 매칭되는 위치, 컴터가 늘 그렇듯 위치는 0번째부터 센다.)<br>myArray.input = cdbBdbsbz; (체크할 대상)<br>myArray[0] = dbBd;(검사에 통과한 부분)<br>myArray[1] = bB;(1번째 괄호에서 체크된 부분)<br>myArray[2] = d;(2번째 괄호에서 체크된 부분)<br><br>myRe.lastIndex =5 ; (다음번 체크를 하기위한 위치.)<br>myRe.ignoreCase = true; (/i 플래그 체크)<br>myRe.global = true; (/g 플래그 체크)<br>myRe.multiline = false; (/m 플래그 체크)<br><br>RegExp.$_ = cdbBdbsbz;(입력한 스트링)<br>RegExp.$1 = bB;(1번째 괄호에서 체크된 부분 )<br>
+
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="200">boolean RegExp.test(<i>to be checked</i>)</td>
+  <td valign="top" width="450">
+
+
+  <div id="ex_test"><br>
+<font color="#FF3399">var</font>&nbsp;myRe=/d(b+)(d)/ig;<br>
+<font color="#FF3399">var</font>&nbsp;checked&nbsp;=&nbsp;myRe.test("cdbBdbsbz");<br>
+<font color="#FF0000">document</font>.write("checked&nbsp;=&nbsp;"&nbsp;+&nbsp;checked&nbsp;+";&lt;br&gt;");<br>
+</div>
+<p>
+
+  <script language="JavaScript">
+    <!--
+        writeExample(/d(b+)(d)/ig, ["cdbBdbsbz"]);
+    //-->
+    </script><b>/d(b+)(d)/gi</b></p><ul><li>c<span style="background-color:#00ff66;"><b>dbBd</b></span>bsbz<font color="green"><b>ⓥ</b></font><br>1th :bB<br>2th :d<br></li></ul>
+  </td>
+  <td valign="top" width="455">실행결과:
+<script language="JavaScript1.2">
+    <!--
+eval(document.getElementById('ex_test').innerHTML);
+    //-->
+</script>checked = true;<br>
+
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="200">String RegExp.toString()</td>
+  <td valign="top" width="450">
+
+  <div id="ex_toString"><br>
+<font color="#FF3399">var</font>&nbsp;myRe=/d(b+)(d)/ig;<br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;myRe.toString();<br>
+<font color="#FF0000">document</font>.write(str);<br>
+</div>
+<p>
+  </p></td>
+  <td valign="top" width="455">실행 결과:
+<script language="JavaScript1.2">
+    <!--
+eval(document.getElementById('ex_toString').innerHTML);
+    //-->
+</script>/d(b+)(d)/gi
+
+  </td>
+</tr>
+
+
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="200" rowspan="4">String String.replace(<i>pattern or string</i>, <i>to be replaced</i>)</td>
+  <td valign="top" width="450">
+  
+  <div id="ex_str_str"><br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"abcdefe";<br>
+<font color="#FF0000">document</font>.write(str.replace("e"&nbsp;,&nbsp;"f"));<br>
+</div>
+  </td>
+  <td valign="top" width="455">실행 결과:
+<script language="JavaScript1.2">
+    <!--
+eval(document.getElementById('ex_str_str').innerHTML);
+    //-->
+</script>abcdffe
+    <br><br>
+    e가 2번 있지만, 첫번째 인자가 정규식이 아니라 문자열일 경우는 첫번째 것만 바꾼다.
+
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="450">
+  <div id="ex_reg_str"><br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"aba";<br>
+<font color="#FF0000">document</font>.write(str.replace(/^a/&nbsp;,&nbsp;"c"));<br>
+</div>
+  </td>
+  <td valign="top" width="455">실행 결과:
+<script language="JavaScript1.2">
+    <!--
+eval(document.getElementById('ex_reg_str').innerHTML);
+    //-->
+</script>cba
+
+  </td>
+</tr>
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="450">
+  <div id="ex_str_$"><br>
+<font color="#FF3399">var</font>&nbsp;re&nbsp;=&nbsp;/(\w+)\s(\w+)/;<br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"John&nbsp;Smith";<br>
+newstr&nbsp;=&nbsp;str.replace(re,&nbsp;"$2,&nbsp;$1");<br>
+<font color="#FF0000">document</font>.write(newstr)<br>
+</div>
+  </td>
+  <td valign="top" width="455">실행 결과:
+<script language="JavaScript1.2">
+<!--
+eval(document.getElementById('ex_str_$').innerHTML);
+//-->
+</script>Smith, John
+<br><br>
+    re에 의해서 찾아진 문자열 들은 re에서 ()로 표현된 순서대로 $1, $2와 같이 변수로 저장된다.
+  </td>
+</tr>
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="450">
+  <div id="ex_str_fun"><br>
+<font color="#FF3399">var</font>&nbsp;re&nbsp;=&nbsp;/\s(?:http|https):\/\/\S*(?:\s|$)/g;<br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"url&nbsp;is&nbsp;http://iilii.egloos.com/&nbsp;!!\n";<br>
+str&nbsp;+=&nbsp;"blah&nbsp;home:&nbsp;http://www.blah.co.kr";<br>
+newstr&nbsp;=&nbsp;str.replace(re,&nbsp;<font color="#6633FF">function</font>&nbsp;(str,p1,offset,s)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC00CC">return</font>&nbsp;"&lt;a&nbsp;href='"&nbsp;+&nbsp;str&nbsp;+&nbsp;"'&gt;"&nbsp;+&nbsp;str&nbsp;+&nbsp;"&lt;/a&gt;";<br>
+&nbsp;&nbsp;}<br>
+).replace(/\n/,&nbsp;"&lt;br&gt;");<br>
+<font color="#FF0000">document</font>.write(newstr);<br>
+</div>
+  </td>
+  <td valign="top" width="455">
+<script language="JavaScript1.2">
+<!--
+eval(document.getElementById('ex_str_fun').innerHTML);
+//-->
+</script>url is<a href="http://iilii.egloos.com/"> http://iilii.egloos.com/ </a>!!<br>blah home:<a href="http://www.blah.co.kr/"> http://www.blah.co.kr</a>
+    <br>
+    <br>
+     str: 찾은 문자열<br>
+     p1: ()에서 검색된 1번째 문자열. 마찬가지로 p2,p3 등도 가능<br>
+     offset: str을 찾은 위치<br>
+     s : 원본 문자열.<br>
+  </td>
+</tr>
+
+
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="200">Array String.match(<i>regular expression</i></td>
+  <td valign="top" width="450">
+  <div id="ex_match"><br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"ABCdEFgHiJKL";<br>
+<font color="#FF3399">var</font>&nbsp;myResult&nbsp;=&nbsp;str.match(/[a-z]/g&nbsp;);<br>
+<font color="#00FF66">for</font>(<font color="#FF3399">var</font>&nbsp;cnt&nbsp;=&nbsp;0&nbsp;;&nbsp;cnt&nbsp;&lt;&nbsp;myResult.length;&nbsp;cnt++){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF0000">document</font>.write(cnt&nbsp;+":"&nbsp;+&nbsp;myResult[cnt]&nbsp;+"&lt;br&gt;");<br>
+}<br>
+<br>
+<font color="#FF0000">document</font>.write("비교&lt;br&gt;");<br>
+<br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"ABCdEFgHiJKL";<br>
+<font color="#FF3399">var</font>&nbsp;myResult&nbsp;=&nbsp;/[a-z]/g.exec(str);<br>
+<font color="#00FF66">for</font>(<font color="#FF3399">var</font>&nbsp;cnt&nbsp;=&nbsp;0&nbsp;;&nbsp;cnt&nbsp;&lt;&nbsp;myResult.length;&nbsp;cnt++){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF0000">document</font>.write(cnt&nbsp;+":"&nbsp;+&nbsp;myResult[cnt]&nbsp;+"&lt;br&gt;");<br>
+}<br>
+</div>
+
+  </td>
+  <td valign="top" width="455">실행 결과:<br>
+<script language="JavaScript1.2">
+    <!--
+eval(document.getElementById('ex_match').innerHTML);
+    //-->
+</script>0:d<br>1:g<br>2:i<br>비교<br>0:d<br>
+    <br>
+    String.match(RegExp) =&gt;g flag가 있으면 다 찾아낸다. <br>
+    RegExp.exec(String) =&gt;g flag가 있어도, 한 개만 찾고 끝낸다.
+  </td>
+</tr>
+
+<tr bgcolor="#FFFFFF">
+  <td valign="top" width="200">Array String.split(<i>[separator[, limit]]</i>)</td>
+  <td valign="top" width="450">
+  <div id="ex_split"><br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"ABCdEFgHiJKL";<br>
+<font color="#FF3399">var</font>&nbsp;myResult&nbsp;=&nbsp;str.split(/[a-z]/g&nbsp;,&nbsp;3);<br>
+<font color="#00FF66">for</font>(<font color="#FF3399">var</font>&nbsp;cnt&nbsp;=&nbsp;0&nbsp;;&nbsp;cnt&nbsp;&lt;&nbsp;myResult.length;&nbsp;cnt++){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF0000">document</font>.write(cnt&nbsp;+":"&nbsp;+&nbsp;myResult[cnt]&nbsp;+"&lt;br&gt;");<br>
+}<br>
+</div>
+  </td>
+  <td valign="top" width="455">실행 결과:<br>
+<script language="JavaScript1.2">
+    <!--
+eval(document.getElementById('ex_split').innerHTML);
+    //-->
+</script>0:ABC<br>1:EF<br>2:H<br>
+    <br>
+    주어진 문자열을 separator를 기준으로 limit 만큼 자른다.
+  </td>
+</tr>
+
+
+  </tbody></table>
+
+ <a name="chap06"><h1>6. 정규식으로 만든 유용한 Javascript 함수</h1></a>
+     <table width="1024" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC">
+
+<tbody><tr bgcolor="#DDDDDD"><td><h3>String removeTags(<i>input</i>)</h3>
+HTML tag부분을 없애준다
+</td></tr>
+<tr bgcolor="#FFFFFF"><td>
+<div id="func_remove"><br>
+<font color="#6633FF">function</font>&nbsp;removeTags(input)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC00CC">return</font>&nbsp;input.replace(/&lt;[^&gt;]+&gt;/g,&nbsp;"");&nbsp;<br>
+};</div>
+</td></tr>
+<tr bgcolor="#FFFFFF"><td>
+example&gt;<br>
+<div id="func_remove_ex"><br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"&lt;b&gt;blah&lt;/b&gt;&nbsp;&lt;i&gt;soft&lt;/i&gt;";<br>
+<font color="#FF0000">document</font>.write(str&nbsp;+"&lt;br&gt;");<br>
+<font color="#FF0000">document</font>.write(removeTags(str));<br>
+</div>
+result&gt;<br>
+<script language="JavaScript1.2">
+<!--
+eval(document.getElementById('func_remove').innerHTML);
+eval(document.getElementById('func_remove_ex').innerHTML);
+//-->
+</script><b>blah</b> <i>soft</i><br>blah soft
+</td></tr>
+<tr bgcolor="#DDDDDD"><td><h3>String String.trim()</h3>
+문자열의 앞뒤 공백을 없애준다.
+</td></tr>
+<tr bgcolor="#FFFFFF"><td>
+<div id="func_trim"><br>
+<font color="#FF0000">String</font>.prototype.trim&nbsp;=&nbsp;<font color="#6633FF">function</font>()&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC00CC">return</font>&nbsp;this.replace(/^\s+|\s+$/g,&nbsp;'');&nbsp;<br>
+};</div>
+</td></tr>
+<tr bgcolor="#FFFFFF"><td>
+example&gt;<br>
+<div id="func_trim_ex1"><br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;untrimed&nbsp;string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";<br>
+<font color="#FF0000">document</font>.write("========"&nbsp;+&nbsp;str+&nbsp;"==============&lt;br&gt;");<br>
+<font color="#FF0000">document</font>.write("========"&nbsp;+&nbsp;str.trim()&nbsp;+&nbsp;"==============");<br>
+</div>
+result&gt;<br>
+<script language="JavaScript1.2">
+<!--
+eval(document.getElementById('func_trim').innerHTML);
+eval(document.getElementById('func_trim_ex1').innerHTML);
+//-->
+</script>========         untrimed string            ==============<br>========untrimed string==============
+</td></tr>
+<tr bgcolor="#DDDDDD"><td><h3>String String.capitalize()</h3>
+단어의 첫 글자를 대문자로 바꿔준다.
+</td></tr>
+<tr bgcolor="#FFFFFF"><td>
+<div id="func_capitalize"><br>
+<font color="#FF0000">String</font>.prototype.capitalize&nbsp;=&nbsp;<font color="#6633FF">function</font>()&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC00CC">return</font>&nbsp;this.replace(/\b([a-z])/g,&nbsp;<font color="#6633FF">function</font>($1){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC00CC">return</font>&nbsp;$1.toUpperCase();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;})&nbsp;;&nbsp;&nbsp;<br>
+};</div>
+</td></tr>
+<tr bgcolor="#FFFFFF"><td>
+example&gt;<br>
+<div id="func_capitalize_ex1"><br>
+<font color="#FF3399">var</font>&nbsp;str&nbsp;=&nbsp;"korea&nbsp;first&nbsp;world&nbsp;best";<br>
+<font color="#FF0000">document</font>.write(str.capitalize());<br>
+</div>
+result&gt;<br>
+<script language="JavaScript1.2">
+<!--
+eval(document.getElementById('func_capitalize').innerHTML);
+eval(document.getElementById('func_capitalize_ex1').innerHTML);
+//-->
+</script>Korea First World Best
+</td></tr>
+  <tr bgcolor="#DDDDDD">
+    <td><h3>String number_format(<i>input</i>)</h3>
+입력된 숫자를 ,를 찍은 형태로 돌려준다</td>
+</tr>
+  <tr bgcolor="#FFFFFF"><td>
+<div id="func_number_format"><br>
+<font color="#6633FF">function</font>&nbsp;number_format(input){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF3399">var</font>&nbsp;input&nbsp;=&nbsp;<font color="#FF0000">String</font>(input);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF3399">var</font>&nbsp;reg&nbsp;=&nbsp;/(\-?\d+)(\d{3})($|\.\d+)/;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#6699CC">if</font>(reg.test(input)){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC00CC">return</font>&nbsp;input.replace(reg,&nbsp;<font color="#6633FF">function</font>(str,&nbsp;p1,p2,p3){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC00CC">return</font>&nbsp;number_format(p1)&nbsp;+&nbsp;","&nbsp;+&nbsp;p2&nbsp;+&nbsp;""&nbsp;+&nbsp;p3;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<font color="#6699CC">else</font>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC00CC">return</font>&nbsp;input;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}</div>
+</td></tr>
+<tr bgcolor="#FFFFFF"><td>
+example&gt;<br>
+<div id="func_number_format_ex1"><br>
+<font color="#FF0000">document</font>.write(number_format(1234562.12)&nbsp;+&nbsp;"&lt;br&gt;");<br>
+<font color="#FF0000">document</font>.write(number_format("-9876543.21987")+&nbsp;"&lt;br&gt;");<br>
+<font color="#FF0000">document</font>.write(number_format("-123456789.12")+&nbsp;"&lt;br&gt;");<br>
+</div>
+result&gt;<br>
+<script language="JavaScript1.2">
+<!--
+eval(document.getElementById('func_number_format').innerHTML);
+eval(document.getElementById('func_number_format_ex1').innerHTML);
+//-->
+</script>1,234,562.12<br>-9,876,543.21987<br>-123,456,789.12<br>
+</td></tr>
+</tbody></table>
+
+
+
+
+
+
+<a name="chap07"> <h1>7. Java 정규식 함수</h1> </a>
+
+     <table width="1024" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC">
+<tbody><tr bgcolor="#FFFFFF"><td>
+<pre>Pattern p = Pattern.compile("(a*)(b)");
+Matcher m = p.matcher("aaaaab");
+if (m.matches()) {
+    for (int i = 0; i &lt; m.groupCount() + 1; i++) {
+        System.out.println(i + ":" + m.group(i));
+    }
+} else {
+    System.out.println("not match!");
+}
+
+result&gt;
+0:aaaaab
+1:aaaaa
+2:b
+0번째는 매칭된 부분.
+</pre>
+    </td></tr>
+<tr bgcolor="#FFFFFF"><td>
+<pre>String a = "I love her";
+System.out.println(a.replaceAll("([A-Z])", "\"$1\""));
+
+result&gt;
+"I" love her
+자바도 $1을 쓸 수 있다.
+</pre>
+    </td></tr>
+<tr bgcolor="#FFFFFF"><td>
+<pre>Pattern p = Pattern.compile("cat");
+Matcher m = p.matcher("one cat two cats in the yard");
+StringBuffer sb = new StringBuffer();
+while (m.find()) {
+    m.appendReplacement(sb, "dog");
+    System.out.println(sb.toString());
+}
+m.appendTail(sb);
+System.out.println(sb.toString());
+
+result&gt;
+one dog
+one dog two dog
+one dog two dogs in the yard
+</pre>
+    </td></tr>
+</tbody></table>
+
+ 
+</body></html>
