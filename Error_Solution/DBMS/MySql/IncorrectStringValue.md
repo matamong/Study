@@ -13,12 +13,19 @@
 
 
 ```ini
-[mysql]
-default-character-set=utf8mb4
-
 [mysqld]
-character-set-server = utf8mb4
+datadir=C:/Program Files/MariaDB 10.4/data
+port=3306
+innodb_buffer_pool_size=2039M
+character-set-client-handshake = FALSE 
+character-set-server = utf8mb4 
 collation-server = utf8mb4_unicode_ci
+[client]
+port=3306
+plugin-dir=C:/Program Files/MariaDB 10.4/lib/plugin
+default-character-set = utf8mb4
+[mysql] default-character-set = utf8mb4
+
 ```
 
 <br>
