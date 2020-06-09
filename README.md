@@ -26,6 +26,7 @@
   - **[SOLID](https://github.com/matamong/Study/tree/master/TIL/OOP/SOLID)**
 - ## **[자료구조&알고리즘](https://github.com/matamong/Study/tree/master/TIL/DataStructure%26Algorythm)** 
   - **[DataStructure](https://github.com/matamong/Study/tree/master/TIL/DataStructure%26Algorythm/DataStructure)**
+  - **[Algorythm](https://github.com/matamong/Study/tree/master/TIL/DataStructure%26Algorythm/Algorythm)**
 
 * * * 
 ## **에러 해결 정리**
