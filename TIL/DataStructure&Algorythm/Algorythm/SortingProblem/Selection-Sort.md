@@ -64,3 +64,15 @@ public class Selection {
     }
 }
 ```
+<br><br><br>
+
+# 특징
+최선 최악의 경우가 없으며 O(n²)으로 비효율적인 알고리즘이다.
+
+
+<br><br><br>
+
+* * *
+### 참고
+[T아카데미 컴퓨터 알고리즘 기초](https://youtu.be/x2nOeHlIbNc) <br>
+[동빈나 실전 알고리즘 강좌](https://youtu.be/8ZiSzteFRYc)
