@@ -36,5 +36,7 @@
   - **[IDE](https://github.com/matamong/Study/tree/master/Error_Solution/IDE)**
   - **[DBMS/oracle](https://github.com/matamong/Study/tree/master/Error_Solution/DBMS/Oracle)**
   - **[Git](https://github.com/matamong/Study/tree/master/Error_Solution/Git)**
+  - **[Nginx](https://github.com/matamong/Study/tree/master/Error_Solution/Nginx)**
+
 
 
