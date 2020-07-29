@@ -1,4 +1,4 @@
-# 정렬문제(Sortin Problem)의 정의
+# 정렬문제(Sorting Problem)의 정의
 
 - `입력` 과 `출력` 으로 명확하게 정의하여야 한다.
     - `입력`
@@ -13,3 +13,19 @@
         ```
 
 - `오름차순` / `내림차순` 으로 정렬한다.
+
+# 정렬문제(Sorting Problem)의 구분
+
+`Comparisons` 방식과 `Non-Comparisons` 방식으로 나뉜다.
+
+## **`Comparisons`**
+- Bubble Sort
+- [Selection Sort](https://github.com/matamong/Study/blob/master/TIL/DataStructure%26Algorythm/Algorythm/SortingProblem/Selection-Sort.md)
+- [Insertion Sort](https://github.com/matamong/Study/blob/master/TIL/DataStructure%26Algorythm/Algorythm/SortingProblem/Insertion-Sort.md)
+- [Merge Sort](https://github.com/matamong/Study/blob/master/TIL/DataStructure%26Algorythm/Algorythm/SortingProblem/Merge-Sort.md)
+- Heap Sort
+- Quick Sort
+
+## **`Non-Comparisons`**
+- Counting Sort
+- Radix Sort
