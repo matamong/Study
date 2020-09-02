@@ -29,6 +29,9 @@
 - 참고로 수동갱신할 때 pip 버전을 업그레이드하라는 경고가 나온다. 이 경우엔 cryptography만 제대로 설치되었으면 무시해도 된다고 한다.
 
 * * *
+## 환경
+AWS EC2 `Amazon Linux AMI 2018.03.0` <br>
+python2.7
 ## 출처
 [Stack Overflow: How to fix ImportError: No module named cryptography?
 ](https://stackoverflow.com/questions/57891591/how-to-fix-importerror-no-module-named-cryptography)
