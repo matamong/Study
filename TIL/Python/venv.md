@@ -22,6 +22,10 @@ python3 -m venv (경로)
 ```
 
 ### Windows
+- 프로젝트 폴더 안에서 venv 환경 생성
+```cmd
+python -m venv (원하는 가상환경 이름)
+```
 - `venv` 명령을 호출
 ```cmd
 c:\>c:\Python35\python -m venv c:(경로)
