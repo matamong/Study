@@ -11,10 +11,12 @@
 <br>
 
 ## **TIL Diary 목차**
- - ## **[201909 ~](https://github.com/matamong/Study/tree/master/TIL_Diary)**
+ - ## **[201909 ~](https://github.com/matamong/Study/tree/master/TIL/ML)**
 
 ## **TIL 목차**
-
+- ## **[ML](https://github.com/matamong/Study/tree/master/TIL/Java)**
+  - **[Algorithm](https://github.com/matamong/Study/tree/master/TIL/ML/Algorithms)**
+- ## **[Python](https://github.com/matamong/Study/tree/master/TIL/Python)**
 - ## **[Java](https://github.com/matamong/Study/tree/master/TIL/Java)**
 
 - ## **[Web](https://github.com/matamong/Study/tree/master/TIL/Web)**
@@ -26,7 +28,7 @@
   - **[SOLID](https://github.com/matamong/Study/tree/master/TIL/OOP/SOLID)**
 - ## **[자료구조&알고리즘](https://github.com/matamong/Study/tree/master/TIL/DataStructure%26Algorythm)** 
   - **[DataStructure](https://github.com/matamong/Study/tree/master/TIL/DataStructure%26Algorythm/DataStructure)**
-  - **[Algorythm](https://github.com/matamong/Study/tree/master/TIL/DataStructure%26Algorythm/Algorythm)**
+  - **[Algorithm](https://github.com/matamong/Study/tree/master/TIL/DataStructure%26Algorythm/Algorythm)**
 
 * * * 
 ## **에러 해결 정리**
