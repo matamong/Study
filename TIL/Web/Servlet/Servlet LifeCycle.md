@@ -6,7 +6,7 @@
 
 ## **Servlet**이 동작하려면...<br>
 * * *
-![ppt1](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletLifeCycle/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C1.JPG)
+![ppt1](https://github.com/matamatamong/img/blob/main/PPT/Servlet/ServletLifeCycle.png?raw=true)
 
 - 먼저 `클라이언트(Web Browser)`가 요청을 보낸다.
 - 클라이언트의 요청을 `WAS`가 받아 `HttpServletRequest`객체와 `HttpServletResponse`객체가 존재하는지 확인 한 후,<br>
@@ -16,7 +16,7 @@
 
 ## **Servlet**의 생명주기 <br>
 * * *
-![ppt2](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletLifeCycle/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C2.JPG)
+![ppt2](https://github.com/matamatamong/img/blob/main/PPT/Servlet/ServletLifeCycle%20(1).png?raw=true)
 
 **Servlet**은 
 - **`init()`**
@@ -28,7 +28,7 @@
 
 ### **`init()`**<br>
 * * *
-![init()ppt](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletLifeCycle/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C3.JPG)
+![init()ppt](https://github.com/matamatamong/img/blob/main/PPT/Servlet/ServletLifeCycle%20(2).png?raw=true)
 
 - was에서 객체넘겨줌 -> 서블릿에서 딱 한 번 초기화 <br>
 
@@ -41,7 +41,7 @@ WAS는 요청이 오면 `HttpServletRequest`객체와 `HttpServletResponse`객�
 
 ### **`service()`**<br>
 * * *
-![service()ppt](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletLifeCycle/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C4.JPG)
+![service()ppt](https://github.com/matamatamong/img/blob/main/PPT/Servlet/ServletLifeCycle%20(3).png?raw=true)
 
 `service()`메서드는 실제로 제일 열일하는 메서드이다.<br>
 `HttpServletRequest`,`HttpServletResponse` 이 두 객체를 가진 컨테이너가 `service()`메서드를 불러낸다.<br>
@@ -51,7 +51,7 @@ WAS는 요청이 오면 `HttpServletRequest`객체와 `HttpServletResponse`객�
 
 ### **`destroy()`**<br>
 * * *
-![service()ppt](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C5.JPG?raw=true)
+![service()ppt](https://github.com/matamatamong/img/blob/main/PPT/Servlet/ServletLifeCycle%20(4).png?raw=true)
 
 기존의 서블릿이 더 이상 필요없을경우 `destroy()`메서드가 호출된다.<br>
 이는 `service()`메서드 내의 변경사항이 있을 경우에도 해당이 되기 때문에<br>

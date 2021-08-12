@@ -17,7 +17,7 @@
 
 ## **redirect**
 * * *
-![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C1.JPG) <br>
+![img](https://github.com/matamatamong/img/blob/main/PPT/Servlet/ServletForwarding.png?raw=true) <br>
 
 `HttpServletResponse` 객체의 `sendRedirect()` 메서드를 이용한다.<br>
 - 웹 브라우저(클라이언트)에게서
@@ -62,7 +62,7 @@ public class SecondServlet extends HttpServlet{
 
 ```
 **결과** <br>
-![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardRedirect.JPG)
+![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardRedirect.JPG?raw=true)
 <br>
  FirstSerlvet에서 second로 매핑된 SecondServlet으로 Redirect한 코드는 브라우저를 한번 거쳐서 다시 `WAS`에서`HttpServletResponse`와 `HttpServletRequest` 객체를 생성하기 때문에 url이 변경된 것을 확인 할 수 있다.
 <br><br><br>
@@ -70,7 +70,7 @@ public class SecondServlet extends HttpServlet{
 
 ## **Refresh**
 * * *
-![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C2.JPG) 
+![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C2.JPG?raw=true) 
 <br>
 
 `HttpServletResponse` 객체의 `addHadder()` 메서드를 이용한다.<br>
@@ -118,9 +118,9 @@ public class SecondServlet extends HttpServlet{
 
 ```
 **결과** <br> 
-![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardRefresh01.JPG) 
+![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardRefresh01.JPG?raw=true) 
 <br>
-![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardRefresh02.JPG) <br>
+![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardRefresh02.JPG?raw=true) <br>
 redirect와 똑같이 객체가 두번 생성되어 매핑된 url값이 달라졌지만 차이점은 첫번째 서블릿에서 잠시 머문다는 것이다.
 <br><br><br>
 
@@ -167,13 +167,13 @@ public class SecondServlet extends HttpServlet{
 
 ```
 **결과** <br> 
-![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardLocation.JPG) <br>
+![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardLocation.JPG?raw=true) <br>
 이 또한 마찬가지로 매핑url은 first에서 second로 변한 것을 알 수 있다.이 말인 즉슨 location 포워드 방식도 `HttpServletRequest`객체와 `HttpServletResponse`객체가 새로 생성되었다는 것이다.
 <br><br><br>
 
 ## **dispatch**
 * * *
-![dispatch.jpeg](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C3.JPG)
+![dispatch.jpeg](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C3.JPG?raw=true)
 <br>
 포워딩이라고 하면 이 dispatch를 일반적으로 나타낸다. 
 `RequestDispatcher` 클래스의 `forward()` 메서드를 이용한다.<br>
@@ -220,7 +220,7 @@ public class SecondSerlvet extends HttpServlet{
 
 ```
 **결과** <br>
-![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardDispatch.JPG) <br>
+![img](https://github.com/matamong/Study/blob/master/TIL/Web/Servlet/img/Servlet/ServletForwarding/ForwardDispatch.JPG?raw=true) <br>
 브라우저가 요청한 후 WAS에서 생성된 `HttpServletRequest`,`HttpServletRespons`객체는 첫번째 서블릿에서 정보를 담아 그대로 두번째 서블릿으로 포워드 되기 때문에 url도 변함없는 것을 확인 할 수 있다.
 <br><br><br>
 
