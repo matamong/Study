@@ -56,7 +56,7 @@ def sigmoid(z):
 <br><br>
 
 
-### **Logistic Regression의 Cost Function(비용함수)**
+## **Logistic Regression의 Cost Function(비용함수)**
 자, 이제 예측값을 알게되었으니 `Cost Function(비용함수)` 을 이용하여 예측값과 실제값과의 오차 중 가장 작은 값이 뭔지 알아내서 오차범위를 좁혀야한다. 그래야 머신러닝모델로 만들었을 때 성능이 좋아질 것이 아니겠는가!
 `Linear Regression` 의 경우에는 선형회귀의 비용함수식을 이용하여 그래프를 그린 다음  `Gradient Descent(경사하강법)` 라는 방법을 이용해 기울기가 0인 부분을 찾아 최소비용을 구한다. 
 설레는 마음으로  `Linear Regression` 이 사용했던 비용함수를 `Logistic Regression` 에게도 적용해본다.  <br>
