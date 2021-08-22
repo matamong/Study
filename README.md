@@ -11,7 +11,7 @@
 <br>
 
 ## **TIL Diary 목차**
- - ## **[201909 ~](https://github.com/matamong/Study/tree/master/TIL/ML)**
+ - ## **[201909 ~](https://github.com/matamong/Study/tree/master/TIL_Diary)**
 
 ## **TIL 목차**
 - ## **[ML](https://github.com/matamong/Study/tree/master/TIL/Java)**
